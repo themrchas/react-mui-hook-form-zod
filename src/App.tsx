@@ -1,6 +1,7 @@
 //import { Basic } from './components/Basic';
 //import { UseZod } from './components/UseZod';
-import { TabsDemo } from './components/TabsDemo';
+//import { TabsDemo } from './components/TabsDemo';
+import { Synch } from './components/Synch'
 
 function App() {
   
@@ -8,7 +9,8 @@ function App() {
     <>
      {/*  <Basic /> */}
      {/*  < UseZod /> */}
-       < TabsDemo /> 
+      {/* < TabsDemo /> */}
+      < Synch />
     </>
   )
 }
