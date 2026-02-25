@@ -1,3 +1,15 @@
+# Overview
+
+This branch provides an example of using react, react hook form, and zod.
+
+<Basic> - uses react mui and react hook form to demonstrate features of react hook form.
+<UseZod> - uses react mui, react hook form, and zod to demonstrate integration of the three components
+<TabsDemo> - Demonstrate a basic example of using mui tabs and state
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
