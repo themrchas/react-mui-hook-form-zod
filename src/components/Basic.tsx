@@ -3,11 +3,11 @@ import React from "react";
 import { DevTool } from "@hookform/devtools"
 
 //import { useForm, useFieldArray, useFormState, type FieldErrors } from "react-hook-form";
-import { useForm, useFieldArray, Controller} from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 
-import { Box, Stack, Typography, Button, TextField } from '@mui/material'
+import { Box, Stack, Typography, Button, TextField, Autocomplete } from '@mui/material'
 
 import { FormLabel, FormControl, FormControlLabel, FormGroup, Checkbox} from '@mui/material'
 
@@ -79,9 +79,19 @@ const handleCheckboxChange = (
 
 
 } //handleCheckboxChange
-
+ 
 
 let renderCount = 0;
+
+
+//Autocomplete items
+const defaultProps ={
+    options: [ {name: "JOHNSON Billy", id: 1}, {name: "SMITH, Bob", id: 2}, {name: "JONES, Fred", id:3}, {name: "TEMPLE, Bill", id: 4} ],
+    getOptionLabel: (option: any) => option.name,
+    clearOnEscape: true,
+    autoHighlight: true
+
+}
 
 
 export const Basic = () => {
@@ -542,6 +552,25 @@ export const Basic = () => {
 
                                 </FormGroup>
                             </FormControl>
+
+                        </Box>
+
+                        <Typography variant="h4" sx={{ mt: 3 }}>Vanilla MUI AutoComplete</Typography>
+                        <Box sx={{ width: "30%", mx: 3}}>
+
+                            <Autocomplete 
+                                {...defaultProps}
+                                id="test-id"
+                                renderInput={(params) => (
+                                    <TextField 
+                                        {...params}
+                                        label="Autocomplete example"
+                                        variant="standard"
+                                    />
+                                )}
+
+
+                            />
 
 
 

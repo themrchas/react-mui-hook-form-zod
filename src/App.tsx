@@ -1,14 +1,14 @@
-//import { Basic } from './components/Basic';
+import { Basic } from './components/Basic';
 //import { UseZod } from './components/UseZod';
-import { TabsDemo } from './components/TabsDemo';
+//import { TabsDemo } from './components/TabsDemo';
 
 function App() {
   
   return (
     <>
-     {/*  <Basic /> */}
+       <Basic /> 
      {/*  < UseZod /> */}
-       < TabsDemo /> 
+      {/* < TabsDemo /> */}
     </>
   )
 }
