@@ -84,14 +84,34 @@ const handleCheckboxChange = (
 let renderCount = 0;
 
 
-//Autocomplete items
+//******  Start Autocomplete items
+
+interface IVanillaAutocomplete {
+
+    name: string,
+    id: number,
+    street: string
+    
+} //IVanillaAutocomplete
+
+const vanillaPets: Array<IVanillaAutocomplete> = [
+
+ {name: "JOHNSON Billy", id: 1, street: "Elm Street 3"}, {name: "SMITH, Bob", id: 2, street: "Main Street 45"}, {name: "JONES, Fred", id:3, street: "Oak Circle 45"}, {name: "TEMPLE, Bill", id: 4, street:"Smith Lan 34"} ]
+
+
 const defaultProps ={
-    options: [ {name: "JOHNSON Billy", id: 1}, {name: "SMITH, Bob", id: 2}, {name: "JONES, Fred", id:3}, {name: "TEMPLE, Bill", id: 4} ],
+    options: vanillaPets,
     getOptionLabel: (option: any) => option.name,
     clearOnEscape: true,
     autoHighlight: true
 
 }
+
+
+
+//*******End autocompleteitems
+
+
 
 
 export const Basic = () => {
@@ -201,6 +221,18 @@ export const Basic = () => {
 
         reset()
     }
+
+
+    //Vanilla Textbox
+    const [vanillaAutocomplete, setVanillaAutocomplete] = useState<IVanillaAutocomplete | null>(null)
+
+    const handleVanillaAutocomplete = (event:React.SyntheticEvent,value:(IVanillaAutocomplete| null )) => {
+
+        console.log('handleVanillaAutocomplete: event is',event,'value is',value);
+
+        setVanillaAutocomplete( (preVal) => value);
+    }
+
 
 
 
@@ -556,11 +588,13 @@ export const Basic = () => {
                         </Box>
 
                         <Typography variant="h4" sx={{ mt: 3 }}>Vanilla MUI AutoComplete</Typography>
-                        <Box sx={{ width: "30%", mx: 3}}>
+                        <Box sx={{ width: 1 / 3, mx: 3}}>
 
                             <Autocomplete 
                                 {...defaultProps}
                                 id="test-id"
+                                onChange={handleVanillaAutocomplete}
+                                value={vanillaAutocomplete}
                                 renderInput={(params) => (
                                     <TextField 
                                         {...params}
@@ -572,16 +606,12 @@ export const Basic = () => {
 
                             />
 
-
-
-
-
                         </Box>
 
 
 
                    {/* <button disabled={!isDirty || !isValid}>Submit</button>*/}
-                   <Stack direction="row" sx={{ my:3}}>
+                   <Stack direction="row" sx={{ my:3 }}>
                    <Button variant="contained" type="submit" color="info">Submit</Button>
                    <Button 
                         variant="contained" 
