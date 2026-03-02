@@ -12,7 +12,7 @@ function App() {
     <>
       <Typography variant="h6" sx={{ m:3}}>Examples of individual React MUI tags can be found in the react-mui-vite-typescript repo</Typography>
       
-      {/* reqct mui and react hook form */}
+      {/* react mui and react hook form */}
       {/* <Basic /> */}
 
       {/* Uses react mui, react hook form, and zod */}
@@ -21,10 +21,10 @@ function App() {
       {/* react mui demo */}
       {/* < TabsDemo /> */}
 
-      {/* react mui and react hook form having child components */}
+      {/* react hook form having child components */}
       {/* < Split />*/}
 
-      {/* react mui, react hook, and zod  form having child components */}
+      {/*  react hook, and zod  form having child components */}
       < SplitZod />
     </>
   )
