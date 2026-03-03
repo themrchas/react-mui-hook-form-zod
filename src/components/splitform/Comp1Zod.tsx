@@ -2,7 +2,7 @@ import React from "react";
 
 import { useFormContext } from "react-hook-form";
 
-import { Stack } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 
 export const Comp1 = () => {
 
@@ -26,6 +26,20 @@ export const Comp1 = () => {
                         id="email"
                         {...register("email")}     
                     />
+
+                    <TextField
+                            label="City"
+                            id="city"
+                            type="text"
+                            {...register("city")}
+                          /*  error={!!formState.errors.email}
+                            helperText={!!formState.errors.email ? formState.errors.email.message : ""}
+                            */
+
+                        />
+
+
+
 
 
      </Stack>

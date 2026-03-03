@@ -39,7 +39,8 @@ export const SplitZod = () => {
                     username: data.name,
                     email: data.email,
                     street: data.address.street,
-                    color: "blue"
+                    color: "blue",
+                    city: data.address.city
                    
                 }
             }, //defaultValues
