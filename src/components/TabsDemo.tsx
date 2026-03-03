@@ -4,14 +4,14 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod"
 
-import type { IActivity  }  from './types/activity.ts';
-import type { I5W } from './types/5w.ts';
-import type { ITabValidity, ITabPanelProps }from './types/application.ts';
-import type { IApproval } from './types/approval.ts';
-import type { IConop } from './types/conop.ts';
-import type { ITravelWorksheet } from './types/travel.ts';
+import type { IActivity  }  from '../types/activity.ts';
+import type { I5W } from '../types/5w.ts';
+import type { ITabValidity, ITabPanelProps }from '../types/application.ts';
+import type { IApproval } from '../types/approval.ts';
+import type { IConop } from '../types/conop.ts';
+import type { ITravelWorksheet } from '../types/travel.ts';
 
-import type { IFormInput } from "./types/test.ts";
+import type { IFormInput } from "../types/test.ts";
 
 
 import dayjs, {Dayjs} from 'dayjs';

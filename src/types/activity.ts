@@ -14,11 +14,11 @@ interface IParticipantsByOffice {
 //Interface describing the majority of fields found in Synch
 export interface IActivity {
 
-    classification: string,
+    activityClassification: string,
     activityTitle: string,
     activityType: string,
-    exerciseName: string,
-    fiscalYear: number,
+    activityExerciseName: string,
+    activityFiscalYear: number,
 
     missionTimeline: {
         travelStart: Dayjs,

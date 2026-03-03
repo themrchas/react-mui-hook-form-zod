@@ -5,7 +5,7 @@ import { DevTool } from "@hookform/devtools"
 import {  FormProvider, useForm } from "react-hook-form";
 
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form"
-import type { ISplitForm } from "./types/splitform";
+import type { ISplitForm } from "../types/splitform";
 
 import { Comp1 } from '../components/splitform/Comp1'
 import { Comp2 } from '../components/splitform/Comp2'

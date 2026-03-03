@@ -11,7 +11,7 @@ import { formSchema } from "../schemas/formSchema"
 import {  FormProvider, useForm } from "react-hook-form";
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form"
 
-import type { ISplitForm } from "./types/splitform";
+import type { ISplitForm } from "../types/splitform";
 
 import { Comp1 } from './splitform/Comp1Zod'
 import { Comp2 } from './splitform/Comp2Zod'
