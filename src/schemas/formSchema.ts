@@ -6,7 +6,8 @@ export const formSchema = z.object({
      email: z.email().nonempty("Email address must be specified"),
      street: z.string().nonempty("Street is a required field"),
      color: z.string().optional().refine((val) => val !== "red", { error: "Color cannot be red" }),
-     city: z.string().nonempty("City must be nonempty")
+     city: z.string().nonempty("City must be nonempty"),
+     state: z.string().nonempty("State must be selected")
 
 }) //formSchema
 

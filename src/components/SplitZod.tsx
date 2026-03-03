@@ -40,7 +40,8 @@ export const SplitZod = () => {
                     email: data.email,
                     street: data.address.street,
                     color: "blue",
-                    city: data.address.city
+                    city: data.address.city,
+                    state: 'FL'
                    
                 }
             }, //defaultValues
