@@ -1,8 +1,8 @@
 //import { Basic } from './components/Basic';
-//import { UseZod } from './components/UseZod';
+import { UseZod } from './components/UseZod';
 //import { TabsDemo } from './components/TabsDemo';
 //import { Split }from './components/Split'
-import { SplitZod }from './components/SplitZod'
+//import { SplitZod }from './components/SplitZod'
 
 import { Typography }from '@mui/material'
 
@@ -16,7 +16,7 @@ function App() {
       {/* <Basic /> */}
 
       {/* Uses react mui, react hook form, and zod */}
-     {/*  < UseZod /> */}
+       < UseZod /> 
 
       {/* react mui demo */}
       {/* < TabsDemo /> */}
@@ -25,7 +25,7 @@ function App() {
       {/* < Split />*/}
 
       {/*  react hook, and zod  form having child components */}
-      < SplitZod />
+     {/*  < SplitZod /> */}
     </>
   )
 }
