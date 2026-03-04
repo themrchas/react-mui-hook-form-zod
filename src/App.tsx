@@ -1,8 +1,10 @@
 //import { Basic } from './components/Basic';
-import { UseZod } from './components/UseZod';
+//import { UseZod } from './components/UseZod';
 //import { TabsDemo } from './components/TabsDemo';
 //import { Split }from './components/Split'
-import { SplitZod }from './components/SplitZod'
+//import { SplitZod }from './components/SplitZod'
+import { Synch } from './components/Synch'
+
 
 import { Typography }from '@mui/material'
 
@@ -25,7 +27,10 @@ function App() {
       {/* < Split />*/}
 
       {/*  react hook, and zod  form having child components */}
-        < SplitZod />  
+      {/* < SplitZod />  */}
+
+      {/* Synch Tool */}
+      <Synch />
     </>
   )
 }

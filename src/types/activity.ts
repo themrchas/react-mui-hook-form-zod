@@ -10,6 +10,18 @@ interface IParticipantsByOffice {
 
 } //IParticipantsByOffice
 
+//Remove in production
+export interface IActivityTest {
+
+    activityClassification: string,
+    activityTitle: string,
+    activityType: string,
+    activityExerciseName: string,
+    activityFiscalYear: number | null,
+
+
+}
+
 
 //Interface describing the majority of fields found in Synch
 export interface IActivity {
