@@ -2,6 +2,11 @@ import React from "react";
 
 import { DevTool } from "@hookform/devtools"
 
+//Installed to use zod with react hook form
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { activitySchema } from "../schemas/synchSchema"
+
 import {  FormProvider, useForm } from "react-hook-form";
 
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form"
@@ -32,11 +37,12 @@ export const Synch = () => {
               activityTitle: "",
               activityType: "",
               activityExerciseName: "",
-              activityFiscalYear: null
+              activityFiscalYear: ""
 
         
             }, //defaultValues
-            mode: "onBlur"
+            mode: "onBlur",
+            resolver: zodResolver(activitySchema)
     
         }) //useForm
 

@@ -16,8 +16,8 @@ export interface IActivityTest {
     activityClassification: string,
     activityTitle: string,
     activityType: string,
-    activityExerciseName: string,
-    activityFiscalYear: number | null,
+    activityExerciseName?: string, //| undefined,
+    activityFiscalYear?: string // | undefined,
 
 
 }
