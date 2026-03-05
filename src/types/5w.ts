@@ -11,3 +11,10 @@ export interface I5W {
     }
 
 } //I5W
+
+//Remove in production
+export interface I5WTest {
+
+    w5missionStatement: string,
+
+} //I5WTest

@@ -6,7 +6,9 @@ export const activitySchema = z.object({
      activityTitle: z.string().nonempty("Title is a required field"),
      activityType: z.string().nonempty("Activity Type is a required field"),
      activityExerciseName: z.string().optional(),
-     activityFiscalYear: z.string().optional()
+     activityFiscalYear: z.string().optional(),
+
+     w5missionStatement: z.string("5W Mission Statement is a required field")
      
 
 }) //formSchema

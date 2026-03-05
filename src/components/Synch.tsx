@@ -10,11 +10,15 @@ import { activitySchema } from "../schemas/synchSchema"
 import {  FormProvider, useForm } from "react-hook-form";
 
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form"
+
 import type { IActivityTest } from "../types/activity";
+import type { I5WTest } from "../types/5w";
+
 
 import { Activity } from "./synch/Activity";
+import { FiveW } from "./synch/FiveW";
 
-
+interface ISynchTool extends I5WTest, IActivityTest {};
 
 
 const onSubmit: SubmitHandler<IActivityTest> = (data: IActivityTest) => {
@@ -29,7 +33,7 @@ const onFormError: SubmitErrorHandler<IActivityTest> = (errors: FieldErrors<IAct
 export const Synch = () => {
 
 
-  const formMethods = useForm<IActivityTest>({
+  const formMethods = useForm<ISynchTool>({
     
         defaultValues:  {
           
@@ -37,7 +41,9 @@ export const Synch = () => {
               activityTitle: "",
               activityType: "",
               activityExerciseName: "",
-              activityFiscalYear: ""
+              activityFiscalYear: "",
+
+              w5missionStatement: ""
 
         
             }, //defaultValues
@@ -57,6 +63,7 @@ return (
         <FormProvider {...formMethods}>
             <form onSubmit={handleSubmit(onSubmit,onFormError)} noValidate>
             <Activity />
+          {/*  <FiveW />*/}
            
             <button type="submit">Submit</button>
             </form>

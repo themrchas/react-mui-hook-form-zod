@@ -54,6 +54,14 @@ export interface IActivity {
 } //ISynchActivity
 
 
+export interface IActivityExercise {
+
+    category: string,
+    exercise: string
+
+}
+
+
 
 
 

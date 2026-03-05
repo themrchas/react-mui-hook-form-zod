@@ -4,12 +4,13 @@ import { useFormContext } from "react-hook-form";
 
 import { useEffect } from "react";
 
-import { Stack, TextField, Typography, InputLabel, Select, MenuItem, ListSubheader } from '@mui/material';
+import { Stack, TextField, Typography, InputLabel, Select, MenuItem, ListSubheader, Autocomplete } from '@mui/material';
 
 import { CLASSIFICATION, FISCAL_YEAR_LOWER_BOUND, FISCAL_YEAR_UPPER_BOUND } from "../../constants/activityConstants";
 
 //Remove once integrated into SPFx
 import { ACTIVITY_TYPE, EXERCISES } from "../../constants/activityConstants";
+
 
 const fiscalYears: string[] = Array.from({ length: FISCAL_YEAR_UPPER_BOUND - FISCAL_YEAR_LOWER_BOUND + 1 }, (_,index) => (FISCAL_YEAR_LOWER_BOUND + index).toString())
 
@@ -19,7 +20,9 @@ export const Activity = () => {
  const { register, getValues, formState: {errors}} = useFormContext()
 
 
- useEffect( () => {}, [] );
+ useEffect(() => {
+    register("select")
+  }, [register])
 
     return (
 
@@ -33,7 +36,7 @@ export const Activity = () => {
                             displayEmpty
                             labelId="lblClassification" 
                             {...register("activityClassification")}
-                            value={getValues('activityClassification') || ""}
+                          //  value={getValues('activityClassification') || ""}
                                              
                             >
                     { CLASSIFICATION.map( 
@@ -61,9 +64,8 @@ export const Activity = () => {
                             displayEmpty
                             labelId="lbllblActivityType" 
                             {...register("activityType")}
-                        //    value={getValues('activityType') || ""}
-                                             
-                            >
+                                                                     
+               >
                     {ACTIVITY_TYPE.map( 
                         (item: string) => <MenuItem key={item} value={item}>{item}</MenuItem>)
     
@@ -71,39 +73,19 @@ export const Activity = () => {
               
                 </Select>
 
+                <Autocomplete 
+                    options={EXERCISES}
+                    groupBy={(option)=> option.category}
+                    getOptionLabel={(option) => option.exercise}
+                    renderInput={(params) => <TextField {...params} label="Exercises" />}
+                    {...register("activityExerciseName")}
+                />
 
 
 
-                 <InputLabel id="lblExercises">Exercise</InputLabel>
-                <Select
-    
-                           // displayEmpty
-                            labelId="lblExercises" 
-                            {...register("activityExerciseName")}
-                      //      value={getValues('activityExerciseName') || ""}
-                                             
-                            >
-                               
-                    { 
-                        Object.entries(EXERCISES).map( ([category,exercises]) => 
-                            <>
-                                <ListSubheader>{category}</ListSubheader>
-                                {
-                                    exercises.map((exercise) => 
-                                        <MenuItem value={exercise}>
-                                            {exercise}
-                                        </MenuItem>
-                       
-                                    )
-                               }
-                              
-                            </>
-                        ) //map
 
-                    }
 
-                               
-                </Select>
+                 
 
 
 <InputLabel id="lblFiscalYear">Fiscal Year</InputLabel>
