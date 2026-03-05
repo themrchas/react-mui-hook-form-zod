@@ -2,6 +2,8 @@ import React from "react";
 
 import { DevTool } from "@hookform/devtools"
 
+import { Dayjs } from "dayjs";
+
 //Installed to use zod with react hook form
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -43,7 +45,16 @@ export const Synch = () => {
               activityExerciseName: "",
               activityFiscalYear: "",
 
-              w5missionStatement: ""
+              w5missionStatement: "",
+
+              
+              activityMissionTimeline: {
+                    travelStart: null,
+                    travelEnd: null,
+                    dutyStart: null,
+                    dutyEnd: null
+              }
+    
 
         
             }, //defaultValues

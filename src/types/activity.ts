@@ -19,6 +19,13 @@ export interface IActivityTest {
     activityExerciseName?: string, //| undefined,
     activityFiscalYear?: string // | undefined,
 
+    activityMissionTimeline: {
+        travelStart: Dayjs | null,
+        travelEnd: Dayjs | null,
+        dutyStart: Dayjs | null,
+        dutyEnd: Dayjs | null
+    },
+
 
 }
 

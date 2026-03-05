@@ -1,5 +1,7 @@
 import * as z from 'zod'
 
+import dayjs, {Dayjs} from 'dayjs';
+
 export const activitySchema = z.object({
 
      activityClassification: z.string().nonempty("Classification is a required field"),
@@ -8,7 +10,22 @@ export const activitySchema = z.object({
      activityExerciseName: z.string().optional(),
      activityFiscalYear: z.string().optional(),
 
-     w5missionStatement: z.string("5W Mission Statement is a required field")
+     w5missionStatement: z.string("5W Mission Statement is a required field"),
+
+     activityMissionTimeline: z.object({
+          travelStart: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable(),
+          travelEnd: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable(),       
+          dutyStart: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable(),     
+          dutyEnd: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable()
+     })
      
 
 }) //formSchema
