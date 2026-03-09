@@ -1,0 +1,8 @@
+import * as z from 'zod'
+
+export const schemaFiveW = z.object({
+
+    w5missionStatement: z.string("5W Mission Statement is a required field")
+
+
+}) //schemaFiveW

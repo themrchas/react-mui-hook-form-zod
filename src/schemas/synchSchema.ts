@@ -10,7 +10,7 @@ export const activitySchema = z.object({
      activityExerciseName: z.string().optional(),
      activityFiscalYear: z.string().optional(),
 
-     w5missionStatement: z.string("5W Mission Statement is a required field"),
+    // w5missionStatement: z.string("5W Mission Statement is a required field"),
 
      activityMissionTimeline: z.object({
           travelStart: z

@@ -16,6 +16,8 @@ import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-
 import type { IActivityTest } from "../types/activity";
 import type { I5WTest } from "../types/5w";
 
+import { schemaFiveW } from '../schemas/schemaFiveW'
+
 
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
