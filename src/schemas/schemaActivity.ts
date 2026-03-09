@@ -10,8 +10,7 @@ export const activitySchema = z.object({
      activityExerciseName: z.string().optional(),
      activityFiscalYear: z.string().optional(),
 
-    // w5missionStatement: z.string("5W Mission Statement is a required field"),
-
+  
      activityMissionTimeline: z.object({
           travelStart: z
                .custom<Dayjs>((val) => val === null || val instanceof dayjs)
@@ -29,6 +28,3 @@ export const activitySchema = z.object({
      
 
 }) //formSchema
-
-// Type inferred from the Zod schema
-//export type FormData = z.infer<typeof formSchema>;

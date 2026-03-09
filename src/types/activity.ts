@@ -30,7 +30,7 @@ export interface IActivityTest {
 }
 
 
-//Interface describing the majority of fields found in Synch
+//Interface describing the fields in the Activity tab
 export interface IActivity {
 
     activityClassification: string,

@@ -1,28 +1,44 @@
 import React from "react";
 
+
+
 import { DevTool } from "@hookform/devtools"
 
 import { Dayjs } from "dayjs";
 
 //Installed to use zod with react hook form
 import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from 'zod'
 
-import { activitySchema } from "../schemas/synchSchema"
+
+//import { activitySchema } from "../schemas/synchSchema"
+
+import { schemaFiveW } from '../schemas/schemaFiveW'
+import { schemaFiveWTest } from '../schemas/schemaFiveW'
+//import { activitySchema } from "../schemas/_synchSchema";
+import { activitySchema } from "../schemas/schemaActivity";
+
+//const synchSchema = activitySchema.extend(schemaFiveW);
+const synchSchema = activitySchema.extend(schemaFiveW.shape);
+
+type SynchFormValues = z.infer<typeof synchSchema>;
 
 import {  FormProvider, useForm } from "react-hook-form";
 
 import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-form"
 
 import type { IActivityTest } from "../types/activity";
-import type { I5WTest } from "../types/5w";
-
-import { schemaFiveW } from '../schemas/schemaFiveW'
+import type { I5W } from "../types/5w";
 
 
+
+//Import components corresponding to each tab
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
 
-interface ISynchTool extends I5WTest, IActivityTest {};
+//Create form interface
+interface ISynchTool extends I5W, IActivityTest {};
+//interface ISynchTool extends IActivityTest {};
 
 
 const onSubmit: SubmitHandler<IActivityTest> = (data: IActivityTest) => {
@@ -37,7 +53,8 @@ const onFormError: SubmitErrorHandler<IActivityTest> = (errors: FieldErrors<IAct
 export const Synch = () => {
 
 
-  const formMethods = useForm<ISynchTool>({
+  //const formMethods = useForm<ISynchTool>({
+  const formMethods = useForm<SynchFormValues>({
     
         defaultValues:  {
           
@@ -46,22 +63,28 @@ export const Synch = () => {
               activityType: "",
               activityExerciseName: "",
               activityFiscalYear: "",
-
-              w5missionStatement: "",
-
-              
+            
               activityMissionTimeline: {
                     travelStart: null,
                     travelEnd: null,
                     dutyStart: null,
                     dutyEnd: null
-              }
-    
+              },
 
+             w5missionStatement: "",
+             w5desiredOutput: "",
+
+              w5communicationPlan: {
+                email:"",
+                alternateEmail: "",
+                phone: "",
+                alternatePhone: ""
+              }
         
             }, //defaultValues
             mode: "onBlur",
-            resolver: zodResolver(activitySchema)
+           // resolver: zodResolver(activitySchema)
+           resolver: zodResolver(synchSchema)
     
         }) //useForm
 
@@ -76,7 +99,7 @@ return (
         <FormProvider {...formMethods}>
             <form onSubmit={handleSubmit(onSubmit,onFormError)} noValidate>
             <Activity />
-          {/*  <FiveW />*/}
+            <FiveW />
            
             <button type="submit">Submit</button>
             </form>

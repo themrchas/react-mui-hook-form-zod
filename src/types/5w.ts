@@ -1,11 +1,12 @@
 export interface I5W {
 
-    missionStatement: string,
-    visitedOrganizations: string[],
-    desiredOutput: string,
-    communicationPlan: {
+    w5missionStatement: string,
+   
+    w5desiredOutput: string,
+
+    w5communicationPlan: {
         email: string,
-        alternateEmail: string,
+        alternateEmail?: string,
         phone: string,
         alternatePhone: string
     }
