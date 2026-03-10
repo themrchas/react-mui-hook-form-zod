@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { DevTool } from "@hookform/devtools"
 
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 
 //Installed to use zod with react hook form
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,9 +20,13 @@ import { schemaFiveW } from '../schemas/schemaFiveW'
 import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
 import { activitySchema } from "../schemas/schemaActivity";
+import { travelItem , travelItems } from "../schemas/schemaTravel"
 
 //const synchSchema = activitySchema.extend(schemaFiveW);
-const synchSchema = activitySchema.extend(schemaFiveW.shape);
+//const synchSchema = activitySchema.extend(schemaFiveW.shape).extend(travelItem.shape);
+const synchSchema = activitySchema
+        .extend(schemaFiveW.shape)
+        .extend({ travelItems });
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -43,7 +47,7 @@ import { TABS } from '../constants/splashConstants'
 //Import components corresponding to each tab
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
-import { TravelWorksheet } from './synch/TravelWorksheet'
+import { Travel } from './synch/Travel'
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -112,7 +116,18 @@ export const Synch = () => {
                 alternateEmail: "",
                 phone: "",
                 alternatePhone: ""
-              }
+              },
+
+              //travelItems: []
+              travelItems: [
+                /*
+                {office: "J4", person: "Beavis", travelStart:"2025-09-12", travelEnd: "2025-09-15", travelModes: ["Air","Sea"]},
+                {office: "J5", person: "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
+                */
+               {office: "J4", person: "Beavis", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Air","Sea"]},
+                {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
+                
+              ]
         
             }, //defaultValues
             mode: "onBlur",
@@ -165,7 +180,7 @@ return (
                     <CustomTabPanel value={currentTabIndex} index={1}>
                         <FiveW />
                     </CustomTabPanel><CustomTabPanel value={currentTabIndex} index={2}>
-                        <TravelWorksheet />
+                        <Travel />
                     </CustomTabPanel>
            
             <button type="submit">Submit</button>

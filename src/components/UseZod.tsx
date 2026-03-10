@@ -166,7 +166,7 @@ export const UseZod = () => {
 
     } = formState
 
-    //Dynamic fields  We use 'fields' in the JSX which is essentially a reference to phNumbers object
+    //Dynamic fields we use 'fields' in the JSX which is essentially a reference to phNumbers object
     const { fields, append, remove } = useFieldArray({
         name: 'phNumbers',    //Use 'phNumbers' as the field array to use to store dynamic content; this must be an array of objects
         control  //This is control returned from useForm hook
