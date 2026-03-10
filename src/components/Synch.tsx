@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Tabs, Tab, Box, Typography }from '@mui/material'
+import { useEffect, useState } from "react";
 
 
 import { DevTool } from "@hookform/devtools"
@@ -9,6 +11,7 @@ import { Dayjs } from "dayjs";
 //Installed to use zod with react hook form
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from 'zod'
+
 
 
 //import { activitySchema } from "../schemas/synchSchema"
@@ -21,6 +24,8 @@ import { activitySchema } from "../schemas/schemaActivity";
 //const synchSchema = activitySchema.extend(schemaFiveW);
 const synchSchema = activitySchema.extend(schemaFiveW.shape);
 
+
+//This sets the form schema based on the zod mini-schemas for eacg tab component
 type SynchFormValues = z.infer<typeof synchSchema>;
 
 import {  FormProvider, useForm } from "react-hook-form";
@@ -29,12 +34,16 @@ import type { FieldErrors, SubmitHandler, SubmitErrorHandler } from "react-hook-
 
 import type { IActivityTest } from "../types/activity";
 import type { I5W } from "../types/5w";
+import type { ITabPanelProps } from '../types/application'
+
+import { TABS } from '../constants/splashConstants'
 
 
 
 //Import components corresponding to each tab
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
+import { TravelWorksheet } from './synch/TravelWorksheet'
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -49,6 +58,30 @@ const onFormError: SubmitErrorHandler<IActivityTest> = (errors: FieldErrors<IAct
 
     console.log("onformError: submission errors are", errors)
 }
+
+
+const CustomTabPanel = (props: ITabPanelProps) => {
+
+    const { children, value, index, ...other } = props;
+
+    return (
+
+        <Box
+            sx={{ display: value === index ? 'block' : 'none' }}
+            {...other}
+        >
+
+            <Typography variant="h5">Tab number {index} </Typography>
+
+            {children}
+
+
+        </Box>
+
+
+    ) //return
+
+} //CustomTabPanel
 
 export const Synch = () => {
 
@@ -91,6 +124,25 @@ export const Synch = () => {
 
          const { register, control, handleSubmit, formState, watch, reset } = formMethods
 
+        const [currentTabIndex, setNewTabIndex] = useState<number>(TABS.Zero);
+
+
+          const handleTabChange = (event: React.SyntheticEvent, newTabIndex: number) => {
+        
+                console.log('event is', event, 'and newTabIdnex is', newTabIndex)
+        
+                setNewTabIndex((oldTabIndex: number) => {
+        
+                    return newTabIndex
+        
+                })
+        
+        
+            } //handleTabChange
+
+
+
+
 return (
 
         <>
@@ -98,8 +150,23 @@ return (
 
         <FormProvider {...formMethods}>
             <form onSubmit={handleSubmit(onSubmit,onFormError)} noValidate>
-            <Activity />
-            <FiveW />
+                <Tabs value={currentTabIndex} onChange={handleTabChange}>
+                    <Tab label="Activity">
+                    </Tab>
+                    <Tab label="5W">
+                    </Tab>
+                    <Tab label="Travel Worksheet">
+                    </Tab>
+                </Tabs>
+
+                    <CustomTabPanel value={currentTabIndex} index={0}>
+                        <Activity />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={currentTabIndex} index={1}>
+                        <FiveW />
+                    </CustomTabPanel><CustomTabPanel value={currentTabIndex} index={2}>
+                        <TravelWorksheet />
+                    </CustomTabPanel>
            
             <button type="submit">Submit</button>
             </form>
