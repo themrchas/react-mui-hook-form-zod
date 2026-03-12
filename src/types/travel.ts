@@ -16,3 +16,7 @@ export interface ITravelWorksheet {
     remarks: string
    
 } //ITravelWorksheet
+
+export interface ITravelPerson {
+    label: string
+}
