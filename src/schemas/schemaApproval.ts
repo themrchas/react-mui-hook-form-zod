@@ -15,6 +15,7 @@ const approvalDecisionRadioBtn = z.object({
 
 const approvalSpecialValidationItem = z.object({
 
+    approver: z.string().nonempty(),
     chkBoxValidate: approvalValidationCheckbox,
     radioBtnDecision: approvalDecisionRadioBtn
 

@@ -28,6 +28,8 @@ import { activitySchema } from "../schemas/schemaActivity";
 import { travelItem , travelItems } from "../schemas/schemaTravel"
 import { approvalSpecialValidation } from "../schemas/schemaApproval"; 
 
+import {APPROVER_LABEL_SNR, APPROVER_LABEL_MEDAD, APPROVER_LABEL_LEGAD, APPROVER_LABEL_SECURITY} from '../constants/approvalConstants'
+
 //const synchSchema = activitySchema.extend(schemaFiveW);
 //const synchSchema = activitySchema.extend(schemaFiveW.shape).extend(travelItem.shape);
 const synchSchema = activitySchema
@@ -138,10 +140,10 @@ export const Synch = () => {
               ],
 
               approvalSpecialValidation:  [
-      { chkBoxValidate: { checked: true, disabled: false }, radioBtnDecision: { decision: "Yes", disabled: false } },
-      { chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "NA", disabled: false } },
-      { chkBoxValidate: { checked: true, disabled: true }, radioBtnDecision: { decision: "Pending", disabled: true } },
-      { chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "No", disabled: false } }
+      { approver:APPROVER_LABEL_SNR,  chkBoxValidate: { checked: true, disabled: false }, radioBtnDecision: { decision: "Yes", disabled: false } },
+      { approver:APPROVER_LABEL_MEDAD,chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "NA", disabled: false } },
+      { approver:APPROVER_LABEL_LEGAD, chkBoxValidate: { checked: true, disabled: true }, radioBtnDecision: { decision: "Pending", disabled: true } },
+      { approver:APPROVER_LABEL_SECURITY, chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "No", disabled: false } }
     ]
         
         
