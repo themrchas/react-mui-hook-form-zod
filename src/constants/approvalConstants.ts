@@ -1,0 +1,1 @@
+export const DECISION_OPTIONS = ["NA","Pending","No","Yes"] as const

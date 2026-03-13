@@ -26,12 +26,14 @@ import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
 import { activitySchema } from "../schemas/schemaActivity";
 import { travelItem , travelItems } from "../schemas/schemaTravel"
+import { approvalSpecialValidation } from "../schemas/schemaApproval"; 
 
 //const synchSchema = activitySchema.extend(schemaFiveW);
 //const synchSchema = activitySchema.extend(schemaFiveW.shape).extend(travelItem.shape);
 const synchSchema = activitySchema
         .extend(schemaFiveW.shape)
-        .extend({ travelItems });
+        .extend({ travelItems })
+        .extend({approvalSpecialValidation});
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -45,7 +47,7 @@ import type { IActivityTest } from "../types/activity";
 import type { I5W } from "../types/5w";
 import type { ITabPanelProps } from '../types/application'
 
-import { TABS } from '../constants/splashConstants'
+import { TABS } from '../constants/synchConstants'
 
 
 
@@ -53,6 +55,7 @@ import { TABS } from '../constants/splashConstants'
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
 import { Travel } from './synch/Travel'
+import { Approval }from './synch/Approval'
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -132,7 +135,15 @@ export const Synch = () => {
                {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00', 'YYYY-MM-DD HH:mm'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
                 
-              ]
+              ],
+
+              approvalSpecialValidation:  [
+      { chkBoxValidate: { checked: true, disabled: false }, radioBtnDecision: { decision: "Yes", disabled: false } },
+      { chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "NA", disabled: false } },
+      { chkBoxValidate: { checked: true, disabled: true }, radioBtnDecision: { decision: "Pending", disabled: true } },
+      { chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "No", disabled: false } }
+    ]
+        
         
             }, //defaultValues
             mode: "onBlur",
@@ -177,6 +188,8 @@ return (
                     </Tab>
                     <Tab label="Travel Worksheet">
                     </Tab>
+                    <Tab label="Approval">
+                    </Tab>
                 </Tabs>
 
                     <CustomTabPanel value={currentTabIndex} index={0}>
@@ -186,6 +199,9 @@ return (
                         <FiveW />
                     </CustomTabPanel><CustomTabPanel value={currentTabIndex} index={2}>
                         <Travel />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={currentTabIndex} index={3}>
+                        <Approval />
                     </CustomTabPanel>
            
             <button type="submit">Submit</button>
