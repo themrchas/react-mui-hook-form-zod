@@ -1,12 +1,16 @@
 import * as z from 'zod'
 
 import dayjs, {Dayjs} from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+
+// Extend dayjs with the plugin
+dayjs.extend(customParseFormat);
 
 //Schema for the Travel tab, sans 'Travel Worksheet'
 export const travelItem= z.object({
 
      office: z.string(),
-     person: z.string(),
+     person: z.string().nonempty(""),
    //  travelStart: z.string().nonempty(),
    //  travelEnd: z.string().nonempty(),
      travelStart: z

@@ -60,7 +60,7 @@ const createTableItem = (
                     name={`travelItems.${index}.person`}  // Dynamic field name for person
                     control={control}
                
-                    render={({ field }) => (
+                    render={({ field, fieldState}) => (
                         <Autocomplete
 
                             /* Spread field to ensure proper binding.
@@ -82,6 +82,7 @@ const createTableItem = (
                              onChange={(e, value, reason) => {
                                 //console.log("e is",e,'value is', value,'reason is',reason);
                                 field.onChange(typeof value === "string" ? value : value?.label ?? "")}  // Update value with the label
+                                
                              }
 
                             //Text shown in autocomplete box
@@ -97,7 +98,12 @@ const createTableItem = (
                                 }
                             }}
                           
-                          renderInput={(params) => <TextField {...params} />}
+                          renderInput={(params) => (<TextField 
+                            {...params} 
+                            error={!!fieldState.error} // <-- flag the error
+                            //helperText={fieldState.error?.message} // <-- display the message
+                        />
+                        )}
                          
                         />
                     )}
@@ -113,9 +119,9 @@ const createTableItem = (
                 <Button type="button" onClick={() => remove(index)}>Remove</Button>
                                           
             </TableCell>
-            <TableCell>{item.travelStart?.format("YYYY-MM-DD")}</TableCell>
-            <TableCell>{item.travelEnd?.format("YYYY-MM-DD")}</TableCell>
-            <TableCell>{item.travelModes.toString()}</TableCell>
+            <TableCell>{item.travelStart?.format("YYYY-MM-DD HH:mm")}</TableCell>
+            <TableCell>{item.travelEnd?.format("YYYY-MM-DD HH:mm")}</TableCell>
+            <TableCell>{item.travelModes.join(', ')}</TableCell>
 
         </TableRow>
 

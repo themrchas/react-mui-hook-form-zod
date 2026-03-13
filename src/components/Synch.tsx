@@ -8,6 +8,11 @@ import { DevTool } from "@hookform/devtools"
 
 import dayjs, { Dayjs } from "dayjs";
 
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
+
+// Extend dayjs with the plugin
+dayjs.extend(customParseFormat);
+
 //Installed to use zod with react hook form
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from 'zod'
@@ -124,7 +129,7 @@ export const Synch = () => {
                 {office: "J4", person: "Beavis", travelStart:"2025-09-12", travelEnd: "2025-09-15", travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
                 */
-               {office: "J4", person: "Beavis", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Air","Sea"]},
+               {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00', 'YYYY-MM-DD HH:mm'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
                 
               ]
