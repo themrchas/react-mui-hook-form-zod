@@ -26,16 +26,22 @@ import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
 import { activitySchema } from "../schemas/schemaActivity";
 import { travelItem , travelItems } from "../schemas/schemaTravel"
-import { approvalSpecialValidation } from "../schemas/schemaApproval"; 
+
+//Associated with the Approval tab
+import { approvalSpecialValidation, approvalEventCategoryChoices, approvalAdditionalActivityChoices } from "../schemas/schemaApproval"; 
 
 import {APPROVER_LABEL_SNR, APPROVER_LABEL_MEDAD, APPROVER_LABEL_LEGAD, APPROVER_LABEL_SECURITY} from '../constants/approvalConstants'
+import {EVENT_CATEGORY_MILESTONE, EVENT_CATEGORY_KEY_EVENT, EVENT_CATEGORY_BATLLE_RHYTHM, EVENT_CATEGORY_VTC, EVENT_CATEGORY_KLE } from '../constants/approvalConstants'
+import {ADDITIONAL_ACTVITY_CONOP_APPROVAL, ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED } from '../constants/approvalConstants'
 
 //const synchSchema = activitySchema.extend(schemaFiveW);
 //const synchSchema = activitySchema.extend(schemaFiveW.shape).extend(travelItem.shape);
 const synchSchema = activitySchema
         .extend(schemaFiveW.shape)
         .extend({ travelItems })
-        .extend({approvalSpecialValidation});
+        .extend({ approvalSpecialValidation })
+        .extend({ approvalEventCategoryChoices })
+        .extend({ approvalAdditionalActivityChoices })
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -57,7 +63,9 @@ import { TABS } from '../constants/synchConstants'
 import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
 import { Travel } from './synch/Travel'
-import { Approval }from './synch/Approval'
+import { ApprovalSpecialValidation }from './synch/ApprovalSpecialValidation'
+import { ApprovalEventCategories } from "./synch/ApprovalEventCategories";
+import { ApprovalAdditionalActivity } from "./synch/ApprovalAdditionalActivity";
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -144,6 +152,23 @@ export const Synch = () => {
       { approver:APPROVER_LABEL_MEDAD,chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "NA", disabled: false } },
       { approver:APPROVER_LABEL_LEGAD, chkBoxValidate: { checked: true, disabled: true }, radioBtnDecision: { decision: "Pending", disabled: true } },
       { approver:APPROVER_LABEL_SECURITY, chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "No", disabled: false } }
+    ],
+
+    approvalEventCategoryChoices: [
+        { category: EVENT_CATEGORY_MILESTONE, chkBoxEventCategory: { checked: true, disabled: false } },
+        { category: EVENT_CATEGORY_KEY_EVENT, chkBoxEventCategory: { checked: true, disabled: false } },
+        { category: EVENT_CATEGORY_BATLLE_RHYTHM, chkBoxEventCategory: { checked: true, disabled: false } },
+        { category: EVENT_CATEGORY_VTC, chkBoxEventCategory: { checked: true, disabled: false } },
+        { category: EVENT_CATEGORY_KLE, chkBoxEventCategory: { checked: true, disabled: false } },
+
+    ],
+
+        approvalAdditionalActivityChoices: [
+
+            { activity: ADDITIONAL_ACTVITY_CONOP_APPROVAL, chkBoxAdditionalActivity: { checked: true, disabled: false } },
+            { activity: ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED, chkBoxAdditionalActivity: { checked: true, disabled: false } },
+        
+
     ]
         
         
@@ -203,7 +228,9 @@ return (
                         <Travel />
                     </CustomTabPanel>
                     <CustomTabPanel value={currentTabIndex} index={3}>
-                        <Approval />
+                        <ApprovalSpecialValidation />
+                        <ApprovalEventCategories />
+                        <ApprovalAdditionalActivity />
                     </CustomTabPanel>
            
             <button type="submit">Submit</button>
