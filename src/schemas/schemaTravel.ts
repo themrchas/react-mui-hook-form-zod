@@ -11,8 +11,7 @@ export const travelItem= z.object({
 
      office: z.string(),
      person: z.string().nonempty(""),
-   //  travelStart: z.string().nonempty(),
-   //  travelEnd: z.string().nonempty(),
+   
      travelStart: z
                .custom<Dayjs>((val) => val === null || val instanceof dayjs)
                .nullable(),

@@ -25,7 +25,8 @@ import { schemaFiveW } from '../schemas/schemaFiveW'
 import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
 import { activitySchema } from "../schemas/schemaActivity";
-import { travelItem , travelItems } from "../schemas/schemaTravel"
+import {  travelItems } from "../schemas/schemaTravel"
+import { conop } from "../schemas/schemaConop";
 
 //Associated with the Approval tab
 import { approvalSpecialValidation, approvalEventCategoryChoices, approvalAdditionalActivityChoices } from "../schemas/schemaApproval"; 
@@ -42,6 +43,7 @@ const synchSchema = activitySchema
         .extend({ approvalSpecialValidation })
         .extend({ approvalEventCategoryChoices })
         .extend({ approvalAdditionalActivityChoices })
+        .extend({ conop: conop.required })
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -66,6 +68,7 @@ import { Travel } from './synch/Travel'
 import { ApprovalSpecialValidation }from './synch/ApprovalSpecialValidation'
 import { ApprovalEventCategories } from "./synch/ApprovalEventCategories";
 import { ApprovalAdditionalActivity } from "./synch/ApprovalAdditionalActivity";
+import { AlternateEmail } from "@mui/icons-material";
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -169,8 +172,28 @@ export const Synch = () => {
             { activity: ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED, chkBoxAdditionalActivity: { checked: true, disabled: false } },
         
 
-    ]
-        
+    ],
+
+    conop: {
+        situation: "CONOP situation entry",
+        purpose: "CONOP puropose",
+        desiredOutcome: [ "Desired outcome 1", "Desired outcome 2"],
+        internalSupportRequired: [ 
+            { directorate: "J1", internalSupportRequired: "Internal Support Required reason 1"},
+            { directorate: "J6", internalSupportRequired: "Internal Support Required reason 1"}
+        ],
+        additionalComments: "CONOP additional comments",
+        communicationsPlan: {
+            email: "the@the.com",
+            alternateEmail: "world@world.net",
+            phone: "45087-07987",
+            alternatePhone: ""
+
+        },
+        recordOfDecision: "https://google.com"
+    },
+
+
         
             }, //defaultValues
             mode: "onBlur",
