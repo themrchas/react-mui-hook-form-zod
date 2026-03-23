@@ -4,6 +4,7 @@ import { UseZod } from './components/UseZod';
 //import { Split }from './components/Split'
 //import { SplitZod }from './components/SplitZod'
 import { Synch } from './components/Synch'
+import { Sandbox }from './components/Sandbox'
 
 
 import { Typography }from '@mui/material'
@@ -28,6 +29,9 @@ function App() {
 
       {/*  react hook, and zod  form having child components */}
       {/* < SplitZod />  */}
+
+      {/*  Sandbox related tests */}
+      {/* <Sandbox />*/}
 
       {/* Synch Tool */}
         <Synch /> 

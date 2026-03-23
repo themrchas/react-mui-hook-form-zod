@@ -1,6 +1,6 @@
 import * as z from 'zod'
 
-const internalSupportRequired = z.object({
+const supportRequired = z.object({
 
      directorate: z.string(),
      internalSupportRequired: z.string()
@@ -8,35 +8,33 @@ const internalSupportRequired = z.object({
 }) //internalSupportRequired
 
 //Schema for the Travel tab, sans 'Travel Worksheet'
-const conopItem = z.object({
+export const conopItem = z.object({
 
-    situation: z.string().optional(),
-
- /*   
-    purpose: z.string().optional(),
+    situation: z.string().default("").optional(),
+    purpose: z.string().default("").optional(),
     desiredOutcome: z.array(z.string()),
-*/
-    //visitedOrganziations: z.array(z.string())
+    //visitedOrganziations: z.array(z.string()) */
+   internalSupportRequired: z.array(supportRequired),
 
-    /*
-    internalSupportRequired: z.array(internalSupportRequired),
-    additionalComments: z.string(), //.default(""),
+   
+    additionalComments: z.string(),
+    
+    
     communicationsPlan: z.object({
                 email: z.email(), //.optional().default(""),
                 alternateEmail: z.email(), //.optional().default(""),
-                phone: z.string(), //.default(""),
+                phone: z.string(),
                 alternatePhone: z.string() //.optional().default("")
      }),
      recordOfDecision: z.string()
-*/
-   
-    
+     
+       
 
 }) //conopItem
 
 
-export const schemaConop = z.object({ conop: conopItem});
-   
+//export const conop = conopItem
+export const rootSchema = z.object({ conop: conopItem})
 
 
 

@@ -20,7 +20,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+
+    /* Optional property type strictness.  
+      This was added because typescript was looking for 'undefined' type values when using zod to generate the schemas.
+    */
+    
+    "exactOptionalPropertyTypes": true
   },
   "include": ["vite.config.ts"]
 }

@@ -26,7 +26,7 @@ import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
 import { activitySchema } from "../schemas/schemaActivity";
 import {  travelItems } from "../schemas/schemaTravel"
-import { conop } from "../schemas/schemaConop";
+import { schemaConop } from "../schemas/schemaConop";
 
 //Associated with the Approval tab
 import { approvalSpecialValidation, approvalEventCategoryChoices, approvalAdditionalActivityChoices } from "../schemas/schemaApproval"; 
@@ -43,7 +43,8 @@ const synchSchema = activitySchema
         .extend({ approvalSpecialValidation })
         .extend({ approvalEventCategoryChoices })
         .extend({ approvalAdditionalActivityChoices })
-        .extend({ conop: conop.required })
+        .extend( schemaConop.shape )
+       //.extend({ conopItem })
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -68,7 +69,7 @@ import { Travel } from './synch/Travel'
 import { ApprovalSpecialValidation }from './synch/ApprovalSpecialValidation'
 import { ApprovalEventCategories } from "./synch/ApprovalEventCategories";
 import { ApprovalAdditionalActivity } from "./synch/ApprovalAdditionalActivity";
-import { AlternateEmail } from "@mui/icons-material";
+import { Conop } from "./synch/Conop";
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
@@ -145,8 +146,12 @@ export const Synch = () => {
                 {office: "J4", person: "Beavis", travelStart:"2025-09-12", travelEnd: "2025-09-15", travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
                 */
-               {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00', 'YYYY-MM-DD HH:mm'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
+          /*     {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00', 'YYYY-MM-DD HH:mm'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
+            */
+           {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
+          {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
+           
                 
               ],
 
@@ -173,29 +178,30 @@ export const Synch = () => {
         
 
     ],
-
+   
     conop: {
         situation: "CONOP situation entry",
-        purpose: "CONOP puropose",
+     
+   /*     purpose: "CONOP puropose",
         desiredOutcome: [ "Desired outcome 1", "Desired outcome 2"],
         internalSupportRequired: [ 
             { directorate: "J1", internalSupportRequired: "Internal Support Required reason 1"},
-            { directorate: "J6", internalSupportRequired: "Internal Support Required reason 1"}
+            { directorate: "J6", internalSupportRequired: "Internal Support Required reason 2"}
         ],
         additionalComments: "CONOP additional comments",
         communicationsPlan: {
             email: "the@the.com",
             alternateEmail: "world@world.net",
             phone: "45087-07987",
-            alternatePhone: ""
+            alternatePhone: "66778"
 
         },
         recordOfDecision: "https://google.com"
-    },
+  */
 
-
+   } //conop
         
-            }, //defaultValues
+        }, //defaultValues
             mode: "onBlur",
            // resolver: zodResolver(activitySchema)
            resolver: zodResolver(synchSchema)
@@ -240,6 +246,8 @@ return (
                     </Tab>
                     <Tab label="Approval">
                     </Tab>
+                    <Tab label="Conop">
+                    </Tab>
                 </Tabs>
 
                     <CustomTabPanel value={currentTabIndex} index={0}>
@@ -254,6 +262,9 @@ return (
                         <ApprovalSpecialValidation />
                         <ApprovalEventCategories />
                         <ApprovalAdditionalActivity />
+                    </CustomTabPanel>
+                    <CustomTabPanel value={currentTabIndex} index={4}>
+                        <Conop />
                     </CustomTabPanel>
            
             <button type="submit">Submit</button>
