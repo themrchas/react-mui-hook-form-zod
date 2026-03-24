@@ -44,7 +44,7 @@ const synchSchema = activitySchema
         .extend({ approvalEventCategoryChoices })
         .extend({ approvalAdditionalActivityChoices })
         .extend( schemaConop.shape )
-       //.extend({ conopItem })
+       
 
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
@@ -98,7 +98,7 @@ const CustomTabPanel = (props: ITabPanelProps) => {
         >
 
             <Typography variant="h5">Tab number {index} </Typography>
-
+  
             {children}
 
 
@@ -182,8 +182,12 @@ export const Synch = () => {
     conop: {
         situation: "CONOP situation entry",
      
-   /*     purpose: "CONOP puropose",
+        purpose: "CONOP puropose",
         desiredOutcome: [ "Desired outcome 1", "Desired outcome 2"],
+
+        keyTask: [ {task: "Key task description 1"}, { task:"Key task description 2" }, { task: "Key task description 3" }],
+      
+
         internalSupportRequired: [ 
             { directorate: "J1", internalSupportRequired: "Internal Support Required reason 1"},
             { directorate: "J6", internalSupportRequired: "Internal Support Required reason 2"}
@@ -197,7 +201,7 @@ export const Synch = () => {
 
         },
         recordOfDecision: "https://google.com"
-  */
+  
 
    } //conop
         

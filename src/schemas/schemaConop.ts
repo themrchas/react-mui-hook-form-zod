@@ -7,18 +7,27 @@ const internalSupportRequired = z.object({
 
 }) //internalSupportRequired
 
+const keyTask = z.object({
+
+    task: z.string()
+
+
+}) //keyTest
+
 //Schema for the Travel tab, sans 'Travel Worksheet'
 const conopItem = z.object({
 
     situation: z.string().optional(),
-
- /*   
+  
     purpose: z.string().optional(),
+
+    keyTask: z.array(keyTask),
+
     desiredOutcome: z.array(z.string()),
-*/
+
     //visitedOrganziations: z.array(z.string())
 
-    /*
+    
     internalSupportRequired: z.array(internalSupportRequired),
     additionalComments: z.string(), //.default(""),
     communicationsPlan: z.object({
@@ -28,7 +37,6 @@ const conopItem = z.object({
                 alternatePhone: z.string() //.optional().default("")
      }),
      recordOfDecision: z.string()
-*/
    
     
 
