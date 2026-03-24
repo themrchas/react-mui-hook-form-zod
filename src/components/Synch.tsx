@@ -183,11 +183,9 @@ export const Synch = () => {
         situation: "CONOP situation entry",
      
         purpose: "CONOP puropose",
-        desiredOutcome: [ "Desired outcome 1", "Desired outcome 2"],
-
         keyTask: [ {task: "Key task description 1"}, { task:"Key task description 2" }, { task: "Key task description 3" }],
-      
 
+        desiredOutcome: [ { outcome: "Desired outcome 1"}, { outcome: "Desired outcome 2"}],
         internalSupportRequired: [ 
             { directorate: "J1", internalSupportRequired: "Internal Support Required reason 1"},
             { directorate: "J6", internalSupportRequired: "Internal Support Required reason 2"}

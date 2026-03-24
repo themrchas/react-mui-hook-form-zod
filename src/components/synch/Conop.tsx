@@ -10,8 +10,14 @@ export const Conop = () => {
 
     const { register, control, formState: {errors}} = useFormContext();
 
-    const { fields, append, remove } = useFieldArray({
+    const { fields: fieldsKeyTasks, append: appendKeyTasks, remove: removeKeyTasks } = useFieldArray({
                 name: 'conop.keyTask',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+                control  //This is control returned from useForm hook
+        
+            })
+
+    const { fields: fieldsDesiredOutcomes, append:appendDesiredOutcomes, remove: removeDesiredOutcomes } = useFieldArray({
+                name: 'conop.desiredOutcome',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
                 control  //This is control returned from useForm hook
         
             })
@@ -53,7 +59,7 @@ export const Conop = () => {
 
   <Grid container spacing={2}>
 
-                    {fields.map((field, index) => (
+                    {fieldsKeyTasks.map((field, index) => (
 
                         <>
 
@@ -70,10 +76,42 @@ export const Conop = () => {
                                     }}
                                 />
                             </Grid>
-                                    <Grid size={3}> <Button type="button" onClick={() => remove(index)}>Remove</Button></Grid>
+                                    <Grid size={3}> <Button type="button" onClick={() => removeKeyTasks(index)}>Remove</Button></Grid>
                         </>
 
 ))}
+
+
+
+
+ 
+ </Grid>
+
+  <Grid container spacing={2}>
+
+                    {fieldsDesiredOutcomes.map((field, index) => (
+
+                        <>
+
+                            
+                            <Grid size={9}>
+                                <TextField
+                                    key={field.id}
+                                    label={`Desired Outcome ${index + 1}`}
+                                    {...register(`conop.desiredOutcome.${index}.outcome`)}
+                                    //defaultValue={field.task}
+                                    fullWidth
+                                    slotProps={{
+                                        input: { startAdornment: <InputAdornment position="start">{index}</InputAdornment> }
+                                    }}
+                                />
+                            </Grid>
+                                    <Grid size={3}> <Button type="button" onClick={() => removeDesiredOutcomes(index)}>Remove</Button></Grid>
+                        </>
+
+))}
+
+
 
 
  

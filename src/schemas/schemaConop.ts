@@ -11,8 +11,14 @@ const keyTask = z.object({
 
     task: z.string()
 
+}) //keyTask
 
-}) //keyTest
+const desiredOutcome = z.object({
+
+    outcome: z.string()
+
+}) //desiredOutcome
+
 
 //Schema for the Travel tab, sans 'Travel Worksheet'
 const conopItem = z.object({
@@ -23,7 +29,7 @@ const conopItem = z.object({
 
     keyTask: z.array(keyTask),
 
-    desiredOutcome: z.array(z.string()),
+    desiredOutcome: z.array(desiredOutcome),
 
     //visitedOrganziations: z.array(z.string())
 
