@@ -1,5 +1,5 @@
 
-import { useFormContext, get, useFieldArray } from "react-hook-form";
+import { useFormContext, get, useFieldArray, Controller } from "react-hook-form";
 
 import { Stack, TextField, Typography, Grid, Box, Button, InputAdornment, Select, MenuItem, Autocomplete } from '@mui/material';
 
@@ -18,6 +18,12 @@ export const Conop = () => {
 
     const { fields: fieldsDesiredOutcomes, append: appendDesiredOutcomes, remove: removeDesiredOutcomes } = useFieldArray({
         name: 'conop.desiredOutcome',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+        control  //This is control returned from useForm hook
+
+    })
+
+      const { fields: fieldsInternalSupportRequired, append: appendInternalSupportRequired, remove: removeInternalSupportRequired } = useFieldArray({
+        name: 'conop.internalSupportRequired',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
         control  //This is control returned from useForm hook
 
     })
@@ -81,7 +87,9 @@ export const Conop = () => {
                     ))}
 
                 </Grid>
-<Button type="button" onClick={() => appendDesiredOutcomes(fieldsKeyTasks.length)}>Append</Button>
+<Button type="button" onClick={() => appendKeyTasks(fieldsKeyTasks.length)}>Append</Button>
+                
+                
                 <Grid container spacing={2}>
 
                     {fieldsDesiredOutcomes.map((field, index) => (
@@ -108,6 +116,58 @@ export const Conop = () => {
                 </Grid>
                 <Button type="button" onClick={() => appendDesiredOutcomes(fieldsDesiredOutcomes.length)}>Append</Button>
 
+
+
+
+
+                <Grid container spacing={2}>
+
+                    {fieldsInternalSupportRequired.map((field, index) => (
+
+                        <>
+                            <Grid size={2}>
+                                <Controller
+                                    name={`conop.internalSupportRequired.${index}.directorate`}
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select {...field} label="Directorate">
+                                            <MenuItem value="IT">IT</MenuItem>
+                                            <MenuItem value="HR">HR</MenuItem>
+                                        </Select>
+                                    )}
+
+                                />
+
+                            </Grid>
+
+                            <Grid size={10}>
+
+                                <Controller
+                                    name={`conop.internalSupportRequired.${index}.internalSupportRequired`}
+                                    control={control}
+
+                                    render={({field}) => (
+
+                                        <TextField
+                                            {...field}
+                                            label="text for inter support required"
+                                            variant="outlined"
+                                        />
+
+
+                                    )}
+                                />
+                              
+                            </Grid>
+
+                        </>
+
+                                ))}
+
+
+                        </Grid>
+
+                
 
 
 
