@@ -20,12 +20,10 @@ import * as z from 'zod'
 
 
 //import { activitySchema } from "../schemas/synchSchema"
-
+import { schemaActivity } from "../schemas/schemaActivity";
 import { schemaFiveW } from '../schemas/schemaFiveW'
-import { schemaFiveWTest } from '../schemas/schemaFiveW'
 //import { activitySchema } from "../schemas/_synchSchema";
-import { activitySchema } from "../schemas/schemaActivity";
-import {  travelItems } from "../schemas/schemaTravel"
+import { schemaTravel } from "../schemas/schemaTravel"
 import { schemaConop } from "../schemas/schemaConop";
 
 //Associated with the Approval tab
@@ -34,12 +32,17 @@ import { approvalSpecialValidation, approvalEventCategoryChoices, approvalAdditi
 import {APPROVER_LABEL_SNR, APPROVER_LABEL_MEDAD, APPROVER_LABEL_LEGAD, APPROVER_LABEL_SECURITY} from '../constants/approvalConstants'
 import {EVENT_CATEGORY_MILESTONE, EVENT_CATEGORY_KEY_EVENT, EVENT_CATEGORY_BATLLE_RHYTHM, EVENT_CATEGORY_VTC, EVENT_CATEGORY_KLE } from '../constants/approvalConstants'
 import {ADDITIONAL_ACTVITY_CONOP_APPROVAL, ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED } from '../constants/approvalConstants'
+import {STRATEGIC_APPROACH_ONE, STRATEGIC_APPROACH_TWO, STRATEGIC_APPROACH_THREE, STRATEGIC_APPROACH_FOUR} from '../constants/activityConstants'
+
+
+
 
 //const synchSchema = activitySchema.extend(schemaFiveW);
 //const synchSchema = activitySchema.extend(schemaFiveW.shape).extend(travelItem.shape);
-const synchSchema = activitySchema
+const synchSchema = schemaActivity
         .extend(schemaFiveW.shape)
-        .extend({ travelItems })
+      //  .extend({ travelItems })
+        .extend(schemaTravel.shape)
         .extend({ approvalSpecialValidation })
         .extend({ approvalEventCategoryChoices })
         .extend({ approvalAdditionalActivityChoices })
@@ -49,6 +52,8 @@ const synchSchema = activitySchema
 
 //This sets the form schema based on the zod mini-schemas for eacg tab component
 type SynchFormValues = z.infer<typeof synchSchema>;
+
+
 
 import {  FormProvider, useForm } from "react-hook-form";
 
@@ -67,16 +72,21 @@ import { Activity } from "./synch/Activity";
 import { FiveW } from "./synch/FiveW";
 import { Travel } from './synch/Travel'
 import { ApprovalSpecialValidation }from './synch/ApprovalSpecialValidation'
-import { ApprovalEventCategories } from "./synch/ApprovalEventCategories";
+/*import { ApprovalEventCategories } from "./synch/ApprovalEventCategories";
 import { ApprovalAdditionalActivity } from "./synch/ApprovalAdditionalActivity";
+*/
 import { Conop } from "./synch/Conop";
+
+import { GenericCheckbox } from "./synch/GenericCheckbox";
+
 
 //Create form interface
 interface ISynchTool extends I5W, IActivityTest {};
 //interface ISynchTool extends IActivityTest {};
 
 
-const onSubmit: SubmitHandler<IActivityTest> = (data: IActivityTest) => {
+//const onSubmit: SubmitHandler<IActivityTest> = (data: IActivityTest) => {
+const onSubmit: SubmitHandler<SynchFormValues> = (data: SynchFormValues) => {
     console.log('Form submitted data is ', data)
 }
 
@@ -116,32 +126,74 @@ export const Synch = () => {
   const formMethods = useForm<SynchFormValues>({
     
         defaultValues:  {
+
+            activity: {
           
-              activityClassification: "",
-              activityTitle: "",
-              activityType: "",
-              activityExerciseName: "",
-              activityFiscalYear: "",
+              classification: "",
+              title: "",
+              type: "",
+              exerciseName: "",
+              fiscalYear: "",
             
-              activityMissionTimeline: {
+              missionTimeline: {
                     travelStart: null,
                     travelEnd: null,
                     dutyStart: null,
                     dutyEnd: null
               },
 
-             w5missionStatement: "",
-             w5desiredOutput: "",
+              lineOfEffort: "",
+              commanderPriority: "",
+              decisiveCondtion: "",
 
-              w5communicationPlan: {
+              strategicApproach: [
+
+                { label:STRATEGIC_APPROACH_ONE,  checked: true, disabled: false },
+                { label:STRATEGIC_APPROACH_TWO, checked: true, disabled: false },
+                { label:STRATEGIC_APPROACH_THREE, checked: false, disabled: false },
+                { label :STRATEGIC_APPROACH_FOUR, checked: true, disabled: true },
+              
+              ],
+
+              destinationsAndTimeline: [
+                {location:"Belgium", startDateTime:dayjs('2026-02-15 04:00'), endDateTime: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm')},
+                {location:"Netherlands", startDateTime:dayjs('2026-02-15 04:00'), endDateTime: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm')},
+                {location:"France", startDateTime:dayjs('2026-02-15 04:00'), endDateTime: dayjs('2026-06-02 18:00', 'YYYY-MM-DD HH:mm')},
+                {location:"Germany", startDateTime:dayjs('2026-02-15 04:00'), endDateTime: dayjs('2026-05-02 18:00', 'YYYY-MM-DD HH:mm')},
+
+              ],
+
+              leadDirectorate: "",
+              planningOPR: "Burns, Frank",
+
+              participantsByOffice: [
+              
+                { office: "DIR 1", count: 2, purpose: "Purpose of participation 1"},
+                { office: "DIR 2", count: 5, purpose: "Purpose of participation 2"},
+                { office: "DIR 1", count: 1, purpose: "Purpose of participation 3"},
+
+              ],
+
+              missionLead: "SMITH, Till"
+
+            },
+
+            fiveW: {
+
+             missionStatement: "",
+             desiredOutput: "",
+
+              communicationPlan: {
                 email:"",
                 alternateEmail: "",
                 phone: "",
                 alternatePhone: ""
-              },
+              }
+            },
 
+            travel : {
               //travelItems: []
-              travelItems: [
+              travelers: [
                 /*
                 {office: "J4", person: "Beavis", travelStart:"2025-09-12", travelEnd: "2025-09-15", travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
@@ -155,7 +207,10 @@ export const Synch = () => {
                 
               ],
 
+            },
+
               approvalSpecialValidation:  [
+                
       { approver:APPROVER_LABEL_SNR,  chkBoxValidate: { checked: true, disabled: false }, radioBtnDecision: { decision: "Yes", disabled: false } },
       { approver:APPROVER_LABEL_MEDAD,chkBoxValidate: { checked: false, disabled: false }, radioBtnDecision: { decision: "NA", disabled: false } },
       { approver:APPROVER_LABEL_LEGAD, chkBoxValidate: { checked: true, disabled: true }, radioBtnDecision: { decision: "Pending", disabled: true } },
@@ -163,19 +218,24 @@ export const Synch = () => {
     ],
 
     approvalEventCategoryChoices: [
-        { category: EVENT_CATEGORY_MILESTONE, chkBoxEventCategory: { checked: true, disabled: false } },
-        { category: EVENT_CATEGORY_KEY_EVENT, chkBoxEventCategory: { checked: true, disabled: false } },
-        { category: EVENT_CATEGORY_BATLLE_RHYTHM, chkBoxEventCategory: { checked: true, disabled: false } },
-        { category: EVENT_CATEGORY_VTC, chkBoxEventCategory: { checked: true, disabled: false } },
-        { category: EVENT_CATEGORY_KLE, chkBoxEventCategory: { checked: true, disabled: false } },
+        { label: EVENT_CATEGORY_MILESTONE, checked: true, disabled: false },
+        { label: EVENT_CATEGORY_KEY_EVENT,  checked: true, disabled: false },
+        { label: EVENT_CATEGORY_BATLLE_RHYTHM, checked: true, disabled: false },
+        { label: EVENT_CATEGORY_VTC,   checked: true, disabled: false },
+        { label: EVENT_CATEGORY_KLE,  checked: true, disabled: false },
 
     ],
 
         approvalAdditionalActivityChoices: [
 
+            /*
             { activity: ADDITIONAL_ACTVITY_CONOP_APPROVAL, chkBoxAdditionalActivity: { checked: true, disabled: false } },
             { activity: ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED, chkBoxAdditionalActivity: { checked: true, disabled: false } },
+        */
+        { label: ADDITIONAL_ACTVITY_CONOP_APPROVAL, checked: true, disabled: false  },
+        { label: ADDITIONAL_ACTVITY_NO_REPORT_REQUIRED,  checked: true, disabled: false  }
         
+
 
     ],
    
@@ -195,7 +255,7 @@ export const Synch = () => {
             email: "the@the.com",
             alternateEmail: "world@world.net",
             phone: "45087-07987",
-            alternatePhone: "66778"
+            alternatePhone: ""
 
         },
         recordOfDecision: "https://google.com"
@@ -230,8 +290,6 @@ export const Synch = () => {
             } //handleTabChange
 
 
-
-
 return (
 
         <>
@@ -254,16 +312,30 @@ return (
 
                     <CustomTabPanel value={currentTabIndex} index={0}>
                         <Activity />
+
+                                              
                     </CustomTabPanel>
                     <CustomTabPanel value={currentTabIndex} index={1}>
                         <FiveW />
-                    </CustomTabPanel><CustomTabPanel value={currentTabIndex} index={2}>
+                    </CustomTabPanel>
+                    <CustomTabPanel value={currentTabIndex} index={2}>
                         <Travel />
+                        
                     </CustomTabPanel>
                     <CustomTabPanel value={currentTabIndex} index={3}>
+
                         <ApprovalSpecialValidation />
-                        <ApprovalEventCategories />
-                        <ApprovalAdditionalActivity />
+
+                        <GenericCheckbox
+                            items={watch("approvalEventCategoryChoices")}
+                            namePrefix="approvalEventCategoryChoices"
+                    />
+                 {/*       <ApprovalEventCategories />  */}
+                   {/*     <ApprovalAdditionalActivity /> */}
+                         <GenericCheckbox
+                            items={watch("approvalAdditionalActivityChoices")}
+                            namePrefix="approvalAdditionalActivityChoices"
+                    />
                     </CustomTabPanel>
                     <CustomTabPanel value={currentTabIndex} index={4}>
                         <Conop />

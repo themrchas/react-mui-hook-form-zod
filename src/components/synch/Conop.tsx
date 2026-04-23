@@ -11,19 +11,19 @@ export const Conop = () => {
     const { register, control, formState: { errors } } = useFormContext();
 
     const { fields: fieldsKeyTasks, append: appendKeyTasks, remove: removeKeyTasks } = useFieldArray({
-        name: 'conop.keyTask',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+        name: 'conop.keyTask',    
         control  //This is control returned from useForm hook
 
     })
 
     const { fields: fieldsDesiredOutcomes, append: appendDesiredOutcomes, remove: removeDesiredOutcomes } = useFieldArray({
-        name: 'conop.desiredOutcome',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+        name: 'conop.desiredOutcome',    
         control  //This is control returned from useForm hook
 
     })
 
       const { fields: fieldsInternalSupportRequired, append: appendInternalSupportRequired, remove: removeInternalSupportRequired } = useFieldArray({
-        name: 'conop.internalSupportRequired',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+        name: 'conop.internalSupportRequired',    
         control  //This is control returned from useForm hook
 
     })
@@ -118,8 +118,6 @@ export const Conop = () => {
 
 
 
-
-
                 <Grid container spacing={2}>
 
                     {fieldsInternalSupportRequired.map((field, index) => (
@@ -165,9 +163,101 @@ export const Conop = () => {
                                 ))}
 
 
-                        </Grid>
+                </Grid>
 
-                
+                <TextField
+
+                    id="conop-additional-comments"
+                    type="text"
+                    label="Additional Comments"
+                    {...register("conop.additionalComments")}
+                    error={!!get(errors, "conop.additionalComments")}
+                    helperText={get(errors, "conop.additionalComments")?.message ? (
+                        <Typography color="error">{get(errors, "conop.additionalComments")?.message}</Typography>
+                    ) : null}
+                />
+
+
+                <Grid container spacing={2}>
+
+                    <Grid size={4}>
+                                <TextField
+                                   
+                                    id="conop-email"
+                                    label={`Email:`}
+                                    {...register(`conop.communicationsPlan.email`)}
+                                    //defaultValue={field.task}
+                                    fullWidth
+                                  /*  slotProps={{
+                                        input: { startAdornment: <InputAdornment position="start">{index}</InputAdornment> }
+                                    }}
+                                        */
+                                />
+                            </Grid>
+                             <Grid size={4}>
+                               <Box />
+                            </Grid>
+                            <Grid size={4}>
+                                <TextField
+                                   
+                                    id="conop-alternate-email"
+                                    label={`Alternate Email:`}
+                                    {...register(`conop.communicationsPlan.alternateEmail`)}
+                                    //defaultValue={field.task}
+                                    fullWidth
+                                  /*  slotProps={{
+                                        input: { startAdornment: <InputAdornment position="start">{index}</InputAdornment> }
+                                    }}
+                                        */
+                                />
+                            </Grid>
+        
+                <Grid size={4}>
+                                <TextField
+                                   
+                                    id="conop-phone"
+                                    label={`Phone:`}
+                                    {...register(`conop.communicationsPlan.phone`)}
+                                    //defaultValue={field.task}
+                                    fullWidth
+                                  /*  slotProps={{
+                                        input: { startAdornment: <InputAdornment position="start">{index}</InputAdornment> }
+                                    }}
+                                        */
+                                />
+                            </Grid>
+                             <Grid size={4}>
+                               <Box />
+                            </Grid>
+                            <Grid size={4}>
+                                <TextField
+                                   
+                                    id="alternate-phone"
+                                    label={`Alternate Phone:`}
+                                    {...register(`conop.communicationsPlan.alternatePhone`)}
+                                    //defaultValue={field.task}
+                                    fullWidth
+                                  /*  slotProps={{
+                                        input: { startAdornment: <InputAdornment position="start">{index}</InputAdornment> }
+                                    }}
+                                        */
+                                />
+                            </Grid>
+                </Grid>
+
+                <TextField
+
+                    id="conop-record-of-decision"
+                    type="text"
+                    label="Record of Decision"
+                    {...register("conop.recordOfDecision")}
+                    error={!!get(errors, "conop.recordOfDecision")}
+                    helperText={get(errors, "conop.recordOfDecision")?.message ? (
+                        <Typography color="error">{get(errors, "conop.recordOfDecision")?.message}</Typography>
+                    ) : null}
+                />
+
+
 
 
 

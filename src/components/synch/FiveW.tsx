@@ -12,24 +12,31 @@ export const FiveW = () => {
 
      <TextField
                                 
-                                id="w5missionStatement"
+                                id="fiveW-mission-statement"
                                 type="text"
                                 label="Mission Statement"
-                                {...register("w5missionStatement")}
-                                error={!!errors.w5missionStatement}
-                               helperText={ !!errors.w5missionStatement ?   <Typography color="error">{String(errors.activityTitle?.message)} </Typography> : null }
-                            />
+                                {...register("fiveW.missionStatement")}
+
+                                helperText={get(errors, "fiveW.missionStatement")?.message ? (
+                                   <Typography color="error">{get(errors, "fiveW.missionStatement")?.message}</Typography>
+                                ) : null}
+
+
+                                 />
 
 
     <TextField
                                 
-                                id="w5desiredOutput"
+                                id="fiveW-desired-output"
                                 type="text"
                                 label="Desired Output"
-                                {...register("w5desiredOutput")}
-                                error={!!errors.w5desiredOutput}
-                               helperText={ !!errors.w5desiredOutput ?   <Typography color="error">{String(errors.activityTitle?.message)} </Typography> : null }
-                            />
+                                {...register("fiveW.desiredOutput")}
+                                 helperText={get(errors, "fiveW.desiredOutput")?.message ? (
+                                   <Typography color="error">{get(errors, "fiveW.desiredOutput")?.message}</Typography>
+                                ) : null}
+
+
+                                />
 
  <Grid container spacing={2}>
                   <Grid size={{xs:4, md:6}}>
@@ -38,15 +45,15 @@ export const FiveW = () => {
 
                         <TextField
                                 
-                                id="w5communicationPlan.email"
+                                id="fiveW-communication-plan-email"
                                 type="text"
                                 label="Email"
-                                {...register("w5communicationPlan.email")}
-                                error={!!get(errors, "w5communicationPlan.email")}
-                                helperText={get(errors, "w5communicationPlan.email")?.message
+                                {...register("fiveW.communicationPlan.email")}
+                                error={!!get(errors, "fiveW.communicationPlan.email")}
+                                helperText={get(errors, "fiveW.communicationPlan.email")?.message
 ? (
       <Typography color="error" variant="caption">
-        {get(errors, "w5communicationPlan.email")?.message}
+        {get(errors, "fiveW.communicationPlan.email")?.message}
       </Typography>
     ) : null
                                 }
@@ -61,15 +68,15 @@ export const FiveW = () => {
 
                         <TextField
                                 
-                                id="w5communicationPlan.alternateEmail"
+                                id="fiveW-communication-plan-alternate-email"
                                 type="text"
                                 label="Alternate Email"
-                                {...register("w5communicationPlan.alternateEmail")}
-                                error={!!get(errors, "w5communicationPlan.alternateEmail")}
-                                helperText={get(errors, "w5communicationPlan.alternateEmail")?.message
+                                {...register("fiveW.communicationPlan.alternateEmail")}
+                                error={!!get(errors, "fiveW.communicationPlan.alternateEmail")}
+                                helperText={get(errors, "fiveW.communicationPlan.alternateEmail")?.message
 ? (
       <Typography color="error" variant="caption">
-        {get(errors, "w5communicationPlan.phone")?.message}
+        {get(errors, "fiveW.communicationPlan.alternateEmail")?.message}
       </Typography>
     ) : null
                                 }
@@ -86,15 +93,15 @@ export const FiveW = () => {
 
                         <TextField
                                 
-                                id="w5communicationPlan.phone"
+                                id="fiveW-communication-plan-phone"
                                 type="text"
                                 label="Phone"
-                                {...register("w5communicationPlan.phone")}
-                                error={!!get(errors, "w5communicationPlan.phone")}
-                                helperText={get(errors, "w5communicationPlan.phone")?.message
+                                {...register("fiveW.communicationPlan.phone")}
+                                error={!!get(errors, "fiveW.communicationPlan.phone")}
+                                helperText={get(errors, "fiveW.communicationPlan.phone")?.message
 ? (
       <Typography color="error" variant="caption">
-        {get(errors, "w5communicationPlan.phone")?.message}
+        {get(errors, "fiveW.communicationPlan.phone")?.message}
       </Typography>
     ) : null
                                 }
@@ -109,15 +116,15 @@ export const FiveW = () => {
 
                         <TextField
                                 
-                                id="w5communicationPlan.alternatePhone"
+                                id="fiveW-communication-plan-alternate-phone"
                                 type="text"
                                 label="Alternate Phone"
-                                {...register("w5communicationPlan.alternatePhone")}
-                                error={!!get(errors, "w5communicationPlan.alternatePhone")}
-                                helperText={get(errors, "w5communicationPlan.alternatePhone")?.message
+                                {...register("fiveW.communicationPlan.alternatePhone")}
+                                error={!!get(errors, "fiveW.communicationPlan.alternatePhone")}
+                                helperText={get(errors, "fiveW.communicationPlan.alternatePhone")?.message
 ? (
       <Typography color="error" variant="caption">
-        {get(errors, "w5communicationPlan.alternatePhone")?.message}
+        {get(errors, "fiveW.communicationPlan.alternatePhone")?.message}
       </Typography>
     ) : null
                                 }

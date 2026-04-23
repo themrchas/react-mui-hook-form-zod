@@ -23,7 +23,17 @@ export const travelItem= z.object({
 
 }) //travelItem
 
+//const travelItems = z.array(travelItem);
+
+export const schemaTravel = z.object({
+
+    travel: z.object({
+     travelers: z.array(travelItem)
+})
+    
+
+}) //schemaTravel
 
 
-export const travelItems = z.array(travelItem)
+//export const travelItems = z.array(travelItem)
  

@@ -2,6 +2,9 @@ import * as z from 'zod'
 
 import { DECISION_OPTIONS } from '../constants/approvalConstants'
 
+
+import { genericCheckBox } from './schemaComponentCheckbox';
+ 
 /******* Start defintions for Validation / Decision*******/
 
 const approvalValidationCheckbox = z.object({
@@ -29,6 +32,7 @@ export const approvalSpecialValidation = z.array(
 ) //travelItem
 
 
+
 /******* End defintions for Validation / Decision *******/
 
 
@@ -50,7 +54,8 @@ export const approvalEventCategoryItem = z.object({
 
 export const approvalEventCategoryChoices = z.array(
 
-    approvalEventCategoryItem
+  //  approvalEventCategoryItem
+   genericCheckBox
 
 ) //approvalEventCategory
 
@@ -65,16 +70,18 @@ const approvalAdditionalActivityCheckbox = z.object({
     disabled: z.boolean()
 });
 
-export const approvalAdditionalActivityItem = z.object({
+export const approvalAdditionalActivityItem = z.array(
 
-    activity: z.string().nonempty(),
-    chkBoxAdditionalActivity: approvalAdditionalActivityCheckbox
+     genericCheckBox
+  //  activity: z.string().nonempty(),
+   // chkBoxAdditionalActivity: approvalAdditionalActivityCheckbox
 
-});
+);
 
 export const approvalAdditionalActivityChoices = z.array(
 
-    approvalAdditionalActivityItem
+  //  approvalAdditionalActivityItem
+  genericCheckBox
 
 ) //approvalEventCategory
 

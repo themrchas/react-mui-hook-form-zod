@@ -38,9 +38,9 @@ const conopItem = z.object({
     additionalComments: z.string(), //.default(""),
     communicationsPlan: z.object({
                 email: z.email(), //.optional().default(""),
-                alternateEmail: z.email(), //.optional().default(""),
+                alternateEmail: z.email().optional(), //.optional().default(""),
                 phone: z.string(), //.default(""),
-                alternatePhone: z.string() //.optional().default("")
+                alternatePhone: z.string().optional() //.optional().default("")
      }),
      recordOfDecision: z.string()
    
@@ -48,7 +48,7 @@ const conopItem = z.object({
 
 }) //conopItem
 
-
+    
 export const schemaConop = z.object({ conop: conopItem});
    
 
