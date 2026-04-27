@@ -17,9 +17,9 @@ import { ACTIVITY_TYPE, EXERCISES, LEAD_DIR } from "../../constants/activityCons
 import { TEST_PERSON } from "../../constants/travelConstants";
 
 
-import { GenericCheckbox } from "./GenericCheckbox"
-import { GenericAutocomplete } from './GenericAutocomplete';
-import { DestinationAndTimelineItem } from "./DestinationsAndTimeline";
+import { GenericCheckbox } from "./components/GenericCheckbox"
+import { GenericAutocomplete } from './components/GenericAutocomplete';
+import { DestinationAndTimelineItem } from "./components/DestinationsAndTimeline";
 import { ParticipantsByOffice } from './ParticipantsByOffice';
 
 const fiscalYears: string[] = Array.from({ length: FISCAL_YEAR_UPPER_BOUND - FISCAL_YEAR_LOWER_BOUND + 1 }, (_, index) => (FISCAL_YEAR_LOWER_BOUND + index).toString())

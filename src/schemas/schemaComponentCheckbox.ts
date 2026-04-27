@@ -7,5 +7,10 @@ export const genericCheckBox = z.object({
     disabled: z.boolean()
 })
 
-
+ export const genericMultiCheckbox = z.object({
+ 
+     category: z.string(),
+     checkboxes: z.array(genericCheckBox)
+ 
+ }) //genericMultiCheckbox 
  

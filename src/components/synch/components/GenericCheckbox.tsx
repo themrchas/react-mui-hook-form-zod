@@ -5,7 +5,7 @@ import { useFormContext, get, Controller, useFieldArray } from "react-hook-form"
 import { Stack, FormGroup, FormControlLabel, Checkbox } from '@mui/material'
 
 //import { approvalAdditionalActivityItem } from "../../schemas/schemaApproval"
-import { genericCheckBox } from "../../schemas/schemaComponentCheckbox";
+import { genericCheckBox } from "../../../schemas/schemaComponentCheckbox";
 
 type CheckboxItemType = z.infer<typeof genericCheckBox>;
 

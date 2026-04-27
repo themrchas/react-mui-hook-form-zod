@@ -77,7 +77,7 @@ import { ApprovalAdditionalActivity } from "./synch/ApprovalAdditionalActivity";
 */
 import { Conop } from "./synch/Conop";
 
-import { GenericCheckbox } from "./synch/GenericCheckbox";
+import { GenericCheckbox } from "./synch/components/GenericCheckbox";
 
 
 //Create form interface
@@ -181,6 +181,22 @@ export const Synch = () => {
             fiveW: {
 
              missionStatement: "",
+
+             visitedOrganizations: [
+
+                { category: "Category 1", 
+                  checkboxes:   [{ label: "Category 1 Label XY", checked: false, disabled: false }, { label: "Category 1 Label ZZ",  checked: true, disabled: false }]
+                },
+                {
+                    category: "Category 2",
+                   checkboxes: [{ label: "Category 2 Label", checked: true, disabled: true }, { label: "Category 2 Label",  checked: true, disabled: false }]
+                    
+                }
+
+             ],
+
+
+
              desiredOutput: "",
 
               communicationPlan: {
@@ -189,7 +205,8 @@ export const Synch = () => {
                 phone: "",
                 alternatePhone: ""
               }
-            },
+
+            }, //fiveW
 
             travel : {
               //travelItems: []

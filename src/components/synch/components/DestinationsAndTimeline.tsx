@@ -7,8 +7,8 @@ import type { FieldArrayWithId } from "react-hook-form"
 
 import { z } from "zod"
 
-import { schemaActivity } from '../../schemas/schemaActivity'
-import { TEST_PERSON } from "../../constants/travelConstants";
+import { schemaActivity } from '../../../schemas/schemaActivity'
+import { TEST_PERSON } from "../../../constants/travelConstants";
 
 import { GenericAutocomplete } from "./GenericAutocomplete";
 
