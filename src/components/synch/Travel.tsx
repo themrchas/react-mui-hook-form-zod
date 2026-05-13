@@ -1,23 +1,23 @@
-import React from "react";
+import { useState } from 'react';
 
-import { Autocomplete, Button, TextField, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material'
+import { Autocomplete, Button, TextField, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material'
 
 import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 
 import type { FieldArrayWithId } from "react-hook-form"
 
-import type { ITravelPerson } from "../../types/travel";
+//import { z } from "zod"
 
-import { z } from "zod"
-
-//import { travelItems } from '../../schemas/schemaTravel'
-import { schemaTravel } from '../../schemas/schemaTravel'
+//import { schemaTravel } from '../../schemas/schemaTravel'
 import { TEST_PERSON } from "../../constants/travelConstants";
 
+import { TravelWorksheetAddPerson } from './components/TravelWorksheetAddPerson'
 
+import type { SynchFormSchema, TravelFormSchema } from '../../schemas/synch.types';
 
-type TravelFormValues = z.infer<typeof schemaTravel>;
+//type TravelFormValues = z.infer<typeof schemaTravel>;
 
+//type basicTraveler = { office: string, person: string }
 
 /* Create an entry in the Travel tab.
 * Note that we use FieldArrayWithId in order to let react 'add' the RHF 'id' property
@@ -25,7 +25,7 @@ type TravelFormValues = z.infer<typeof schemaTravel>;
 */
 const createTableItem = (
     // item: FieldArrayWithId<TravelFormValues, "travelItems.travelItems", "id">,
-    item: FieldArrayWithId<TravelFormValues['travel'], "travelers", "id">,
+    item: FieldArrayWithId<TravelFormSchema['travel'], "travelers", "id">,
     index: number,
     register: any,
     remove: (index: number) => void,
@@ -128,10 +128,18 @@ const createTableItem = (
 
 export const Travel = () => {
 
-    const { control, register } = useFormContext<TravelFormValues>();
+  //  const { control, register } = useFormContext<TravelFormSchema>();
+  const { control, register } = useFormContext<SynchFormSchema>();
 
-    console.log("In Travel ")
+   /*const [newTraveler, setNewTraveler] = useState<basicTraveler>({
+        office: "",
+        person: ""
+    });
+*/
 
+
+    const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+        
 
 
     //Dynamic fields we use 'fields' in the JSX which is essentially a reference to travelItems object
@@ -139,7 +147,43 @@ export const Travel = () => {
         name: 'travel.travelers',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
         control  //This is control returned from useForm hook
 
-    })
+    });
+
+    //Current traveler entry being edited
+    const [currentIndex, setcurrentIndex] = useState<number | null>(null);
+
+
+    //Handler for opening a dialog to add a traveler to the 'Travel Worksheet' tab
+    const handleButtonClick = () => {
+  
+    //    setNewTraveler((oldTraveler:basicTraveler) => ( { office: "", person: "" } ));
+
+        setcurrentIndex(null);
+        setDialogIsOpen(true);
+
+    }
+
+
+/*
+    const saveDialogInformation = (person: string, office: string)  => {
+
+        setNewTraveler(oldTravelerValue => (
+            {office: office, person: person})
+        )
+
+
+    } //saveDialogInformation
+*/
+
+    //Sets values  by Dialog to open or close Dialog
+    /*const setDialogIsOpen = (value:boolean) => {
+
+       setDialogOpen(value)
+
+
+    } //setDialogIsOpen
+
+    */
 
     return (
 
@@ -177,9 +221,23 @@ export const Travel = () => {
 
                 </Table>
 
-
-
             </TableContainer>
+
+            <Button variant="outlined" 
+                    size="medium" 
+                    sx={{ my: 3 }}
+                    onClick={handleButtonClick}
+             >Add Traveler                
+             </Button>
+
+           <TravelWorksheetAddPerson 
+                control={control} 
+                index={currentIndex} 
+                isOpen={dialogIsOpen} 
+                append={append} 
+                setDialogIsOpen={setDialogIsOpen}>
+                
+            </TravelWorksheetAddPerson>
 
 
 

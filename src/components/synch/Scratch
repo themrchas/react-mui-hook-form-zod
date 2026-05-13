@@ -1,72 +1,140 @@
-  
-  Example of using Autocomplete
-  <TableCell>
+import {
+    Dialog,
+    DialogContent,
+    DialogActions,
+    Button,
+    Select,
+    MenuItem,
+    Stack,
+    InputLabel
+} from '@mui/material';
 
+import { useState, useEffect } from 'react';
+import { Controller, Control } from 'react-hook-form';
 
-                <Controller
-                    name={`activity.destinationsAndTimelineItem.${index}.person`}  // Dynamic field name for person
-                    control={control}
+import { GenericAutocomplete } from './GenericAutocomplete';
+import { TEST_PERSON } from '../../../constants/travelConstants';
+import { LEAD_DIR } from '../../../constants/activityConstants';
 
-                    render={({ field, fieldState }) => (
-                        <Autocomplete
+import type { TravelFormValues } from '../Travel'; // adjust path if needed
 
-                            /* Spread field to ensure proper binding.
-                            * This is how RHF will manage the component.
-                            * field.value is the RHF managed value of this component
-                            */
-                            {...field}
+type Props = {
+    control: Control<TravelFormValues>;
+    index: number | null;
+    isOpen: boolean;
+    append: (value: any) => void;
+    setDialogIsOpen: (open: boolean) => void;
+};
 
-                            freeSolo //Allow free text inputs
-                            options={TEST_PERSON} //Array of options to display 
+export const TravelWorksheetAddPerson = ({
+    control,
+    index,
+    isOpen,
+    append,
+    setDialogIsOpen
+}: Props) => {
 
-                            /*How to display values from which user can choose.
-                            * If option is a string value and not in TEST_PERSON, then it is of type 
-                            * string, else we display the value associated with label - 'label: "Bob"'
-                            * */
-                            getOptionLabel={(option) => typeof option === "string" ? option : option.label}
+    const isEditMode = index !== null;
 
-                            //When the user selects an option from the dropdown OR clicks the clear (x) button
-                            onChange={(e, value, reason) => {
-                                //console.log("e is",e,'value is', value,'reason is',reason);
-                                field.onChange(typeof value === "string" ? value : value?.label ?? "")
-                            }  // Update value with the label
+    // Local state ONLY for create mode
+    const [localOffice, setLocalOffice] = useState("");
+    const [localPerson, setLocalPerson] = useState("");
 
-                            }
+    // Reset when dialog opens in create mode
+    useEffect(() => {
+        if (isOpen && !isEditMode) {
+            setLocalOffice("");
+            setLocalPerson("");
+        }
+    }, [isOpen, isEditMode]);
 
-                            //Text shown in autocomplete box
-                            inputValue={field.value || ""}
+    const handleSave = () => {
+        if (isEditMode) {
+            // RHF already updated values
+            setDialogIsOpen(false);
+        } else {
+            append({
+                office: localOffice,
+                person: localPerson,
+                travelStart: null,
+                travelEnd: null,
+                travelModes: []
+            });
+            setDialogIsOpen(false);
+        }
+    };
 
-                            // Highlight selected option in the drop down
-                            value={TEST_PERSON.find(person => person.label === field.value) || null}
+    const handleCancel = () => {
+        setDialogIsOpen(false);
+    };
 
-                            //When the text in the input field changes (typing, clearing, autocompleting)
-                            onInputChange={(e, newInputValue, reason) => {
-                                if (reason === "input" || reason === "clear") {
-                                    field.onChange(newInputValue);
-                                }
-                            }}
+    if (!isOpen) return null;
 
-                            renderInput={(params) => (<TextField
-                                {...params}
-                                error={!!fieldState.error} // <-- flag the error
-                            //helperText={fieldState.error?.message} // <-- display the message
-                            />
+    return (
+        <Dialog open={isOpen} fullWidth maxWidth="sm">
+            <DialogContent>
+                <Stack spacing={2}>
+
+                    {/* OFFICE */}
+                    <InputLabel>Office</InputLabel>
+
+                    {isEditMode ? (
+                        <Controller
+                            name={`travel.travelers.${index}.office`}
+                            control={control}
+                            render={({ field }) => (
+                                <Select {...field}>
+                                    {LEAD_DIR.map((dir, i) => (
+                                        <MenuItem key={i} value={dir}>
+                                            {dir}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
                             )}
+                        />
+                    ) : (
+                        <Select
+                            value={localOffice}
+                            onChange={(e) => setLocalOffice(e.target.value)}
+                        >
+                            {LEAD_DIR.map((dir, i) => (
+                                <MenuItem key={i} value={dir}>
+                                    {dir}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    )}
 
+                    {/* PERSON */}
+                    {isEditMode ? (
+                        <GenericAutocomplete<TravelFormValues, (typeof TEST_PERSON)[number]>
+                            name={`travel.travelers.${index}.person`}
+                            control={control}
+                            options={TEST_PERSON}
+                            getOptionLabel={(p) => p.label}
+                            getOptionValue={(p) => p.label}
+                        />
+                    ) : (
+                        <GenericAutocomplete<any, (typeof TEST_PERSON)[number]>
+                            name={"_unused"} // not used in create mode
+                            control={control} // not used but required by type
+                            options={TEST_PERSON}
+                            getOptionLabel={(p) => p.label}
+                            getOptionValue={(p) => p.label}
+                            value={localPerson}
+                            onChange={setLocalPerson}
                         />
                     )}
-                />
 
+                </Stack>
+            </DialogContent>
 
-
-
-            </TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell>
-                <Button type="button" onClick={() => remove(index)}>Remove</Button>
-
-            </TableCell>
-            <TableCell>{item.travelStart?.format("YYYY-MM-DD HH:mm")}</TableCell>
-            <TableCell>{item.travelEnd?.format("YYYY-MM-DD HH:mm")}</TableCell>
-            <TableCell>{item.travelModes.join(', ')}</TableCell>
+            <DialogActions>
+                <Button onClick={handleSave}>
+                    {isEditMode ? "Save" : "Add"}
+                </Button>
+                <Button onClick={handleCancel}>Cancel</Button>
+            </DialogActions>
+        </Dialog>
+    );
+};
