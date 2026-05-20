@@ -1,5 +1,7 @@
 import * as z from 'zod'
 
+import { genericCheckBox } from './schemaComponentCheckbox';
+
 import dayjs, {Dayjs} from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 
@@ -18,12 +20,20 @@ export const travelItem= z.object({
      travelEnd: z
                .custom<Dayjs>((val) => val === null || val instanceof dayjs)
                .nullable(),  
+
+     dutyStart: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable(),  
+
+     dutyEnd: z
+               .custom<Dayjs>((val) => val === null || val instanceof dayjs)
+               .nullable(),  
                
-     travelModes: z.array(z.string().nonempty())
+     travelModes: z.array(genericCheckBox)
 
 }) //travelItem
 
-//const travelItems = z.array(travelItem);
+
 
 export const schemaTravel = z.object({
 

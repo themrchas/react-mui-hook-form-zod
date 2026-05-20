@@ -4,3 +4,7 @@ export const TEST_PERSON: Array<ITravelPerson> =
     [
         {label: "SMITH, John"},{label: "LORT, Frank"},{label: "Miller, John"},{label: "FORTH, Patrick"},
     ]
+
+export const TRAVEL_MODES: Array<string> = ["Air","Sea","Train", "Car"]
+
+

@@ -1,23 +1,29 @@
 import { useState } from 'react';
 
-import { Autocomplete, Button, TextField, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, Typography } from '@mui/material'
+import { Autocomplete, Button, TextField, TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, Typography, accordionActionsClasses } from '@mui/material'
 
 import { useFormContext, useFieldArray, Controller } from "react-hook-form";
 
 import type { FieldArrayWithId } from "react-hook-form"
 
-//import { z } from "zod"
-
-//import { schemaTravel } from '../../schemas/schemaTravel'
 import { TEST_PERSON } from "../../constants/travelConstants";
 
-import { TravelWorksheetAddPerson } from './components/TravelWorksheetAddPerson'
+import { TravelWorksheet } from './components/TravelWorksheet'
 
-import type { SynchFormSchema, TravelFormSchema } from '../../schemas/synch.types';
+import type { SynchFormSchema, TravelFormSchema, CheckboxItemType } from '../../schemas/synch.types';
 
-//type TravelFormValues = z.infer<typeof schemaTravel>;
 
-//type basicTraveler = { office: string, person: string }
+
+
+const createTravelModesString = (travelModes: Array<CheckboxItemType>) : string => {
+
+    return travelModes.reduce( (acc,current) =>
+
+         { 
+           return current.checked ? (acc ? `${acc} ${current.label}` : current.label) : acc
+        }, ""
+    )
+}
 
 /* Create an entry in the Travel tab.
 * Note that we use FieldArrayWithId in order to let react 'add' the RHF 'id' property
@@ -29,7 +35,10 @@ const createTableItem = (
     index: number,
     register: any,
     remove: (index: number) => void,
-    control: any
+    control: any,
+
+    //Controls adding or editing a travel worksheet
+    handleDialogButtonClick: (index: number | null) => void
 ) => {
 
 
@@ -108,7 +117,9 @@ const createTableItem = (
 
 
             </TableCell>
-            <TableCell></TableCell>
+            <TableCell>
+                <Button type="button" onClick={() => handleDialogButtonClick(index)}>Edit</Button>
+            </TableCell>
             <TableCell></TableCell>
             <TableCell>
                 <Button type="button" onClick={() => remove(index)}>Remove</Button>
@@ -116,7 +127,8 @@ const createTableItem = (
             </TableCell>
             <TableCell>{item.travelStart?.format("YYYY-MM-DD HH:mm")}</TableCell>
             <TableCell>{item.travelEnd?.format("YYYY-MM-DD HH:mm")}</TableCell>
-            <TableCell>{item.travelModes.join(', ')}</TableCell>
+          {/*   <TableCell>{item.travelModes.join(', ')}</TableCell> */}
+          <TableCell>{createTravelModesString(item.travelModes)}</TableCell>
 
         </TableRow>
 
@@ -129,7 +141,7 @@ const createTableItem = (
 export const Travel = () => {
 
   //  const { control, register } = useFormContext<TravelFormSchema>();
-  const { control, register } = useFormContext<SynchFormSchema>();
+  const { control, register, setValue, getValues } = useFormContext<SynchFormSchema>();
 
    /*const [newTraveler, setNewTraveler] = useState<basicTraveler>({
         office: "",
@@ -141,49 +153,36 @@ export const Travel = () => {
     const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
         
 
-
     //Dynamic fields we use 'fields' in the JSX which is essentially a reference to travelItems object
+    const { fields: travelers, append: appendTraveler, remove: removeTraveler } = useFieldArray({
+        name: 'travel.travelers',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
+        control  //This is control returned from useForm hook
+
+    });
+    
+/*
     const { fields, append, remove } = useFieldArray({
         name: 'travel.travelers',    //Use 'travelItems' as the field array to use to store dynamic content; this must be an array of objects
         control  //This is control returned from useForm hook
 
     });
+    */
 
     //Current traveler entry being edited
     const [currentIndex, setcurrentIndex] = useState<number | null>(null);
 
 
     //Handler for opening a dialog to add a traveler to the 'Travel Worksheet' tab
-    const handleButtonClick = () => {
+    //const handleDialogButtonClick = () => {
+    const handleDialogButtonClick = (index: number | null) => {
   
-    //    setNewTraveler((oldTraveler:basicTraveler) => ( { office: "", person: "" } ));
-
-        setcurrentIndex(null);
+  
+     setcurrentIndex(index);
         setDialogIsOpen(true);
 
     }
 
 
-/*
-    const saveDialogInformation = (person: string, office: string)  => {
-
-        setNewTraveler(oldTravelerValue => (
-            {office: office, person: person})
-        )
-
-
-    } //saveDialogInformation
-*/
-
-    //Sets values  by Dialog to open or close Dialog
-    /*const setDialogIsOpen = (value:boolean) => {
-
-       setDialogOpen(value)
-
-
-    } //setDialogIsOpen
-
-    */
 
     return (
 
@@ -205,11 +204,11 @@ export const Travel = () => {
                     </TableHead>
                     <TableBody>
 
-                        {fields.map((item, index) => {
+                        {travelers.map((item, index) => {
 
                             console.log("money");
 
-                            return createTableItem(item, index, register, remove, control)
+                            return createTableItem(item, index, register, removeTraveler, control, handleDialogButtonClick)
 
                         })}
 
@@ -226,18 +225,20 @@ export const Travel = () => {
             <Button variant="outlined" 
                     size="medium" 
                     sx={{ my: 3 }}
-                    onClick={handleButtonClick}
+                    onClick={() => handleDialogButtonClick(null)}
              >Add Traveler                
              </Button>
 
-           <TravelWorksheetAddPerson 
+           <TravelWorksheet
                 control={control} 
                 index={currentIndex} 
                 isOpen={dialogIsOpen} 
-                append={append} 
+                append={appendTraveler} 
+                getValues={getValues}
+                setValue={setValue}
                 setDialogIsOpen={setDialogIsOpen}>
                 
-            </TravelWorksheetAddPerson>
+            </TravelWorksheet>
 
 
 

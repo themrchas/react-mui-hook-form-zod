@@ -64,6 +64,7 @@ import type { I5W } from "../types/5w";
 import type { ITabPanelProps } from '../types/application'
 
 import { TABS } from '../constants/synchConstants'
+import { TRAVEL_MODES } from "../constants/travelConstants";
 
 
 
@@ -213,13 +214,23 @@ export const Synch = () => {
               travelers: [
                 /*
                 {office: "J4", person: "Beavis", travelStart:"2025-09-12", travelEnd: "2025-09-15", travelModes: ["Air","Sea"]},
-                {office: "J5", person: "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
+                {office: "J5", person : "Butthead", travelStart:"2026-09-12", travelEnd: "2026-09-15", travelModes: ["Auto"]}
                 */
           /*     {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00', 'YYYY-MM-DD HH:mm'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
                 {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
             */
-           {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), travelModes: ["Air","Sea"]},
-          {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), travelModes: ["Auto"]}
+           {office: "J4", person: "Beavis", travelStart:dayjs('2026-02-15 04:00'), travelEnd: dayjs('2026-03-02 18:00', 'YYYY-MM-DD HH:mm'), dutyStart:dayjs('2026-02-15 04:00'), dutyEnd:dayjs('2026-02-15 04:00'), 
+               travelModes: [ { label:TRAVEL_MODES[0], checked: true, disabled: false },
+                { label:TRAVEL_MODES[1], checked: false, disabled: false },
+                { label:TRAVEL_MODES[2], checked: true, disabled: true }
+           ]},
+          {office: "J5", person: "Butthead", travelStart:dayjs(), travelEnd: dayjs(), dutyStart:dayjs('2026-02-15 04:00'), dutyEnd:dayjs('2026-02-15 04:00'), 
+             travelModes: [ { label:TRAVEL_MODES[0], checked: true, disabled: false },
+                { label:TRAVEL_MODES[1], checked: true, disabled: false },
+                { label:TRAVEL_MODES[2], checked: false, disabled: true }
+           ]
+        
+        }
            
                 
               ],
@@ -343,15 +354,17 @@ return (
 
                         <ApprovalSpecialValidation />
 
-                        <GenericCheckbox
+                        <GenericCheckbox<SynchFormValues>
                             items={watch("approvalEventCategoryChoices")}
                             namePrefix="approvalEventCategoryChoices"
+                            control={control}
                     />
                  {/*       <ApprovalEventCategories />  */}
                    {/*     <ApprovalAdditionalActivity /> */}
-                         <GenericCheckbox
+                         <GenericCheckbox<SynchFormValues>
                             items={watch("approvalAdditionalActivityChoices")}
                             namePrefix="approvalAdditionalActivityChoices"
+                            control={control}
                     />
                     </CustomTabPanel>
                     <CustomTabPanel value={currentTabIndex} index={4}>

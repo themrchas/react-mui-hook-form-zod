@@ -11,6 +11,12 @@ import { schemaConop } from "../schemas/schemaConop";
 //Associated with the Approval tab
 import { approvalSpecialValidation, approvalEventCategoryChoices, approvalAdditionalActivityChoices } from "../schemas/schemaApproval"; 
 
+//This infomation that appears in a Travel worksheet
+import { travelItem } from './schemaTravel'
+
+import { genericCheckBox } from "./schemaComponentCheckbox";
+
+
 
 const synchSchema = schemaActivity
         .extend(schemaFiveW.shape)
@@ -23,7 +29,14 @@ const synchSchema = schemaActivity
        
 
 
-//This sets the form schema based on the zod mini-schemas for eacg tab component
+//This sets the form schema based on the zod mini-schemas for each tab component
 export type SynchFormSchema = z.infer<typeof synchSchema>;
 
 export type TravelFormSchema =  z.infer<typeof schemaTravel>;
+
+export type TravelItemType = z.infer<typeof travelItem>;
+
+//Generic checkbox item type
+export type CheckboxItemType = z.infer<typeof genericCheckBox>;
+
+

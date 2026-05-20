@@ -21,6 +21,7 @@ import { GenericCheckbox } from "./components/GenericCheckbox"
 import { GenericAutocomplete } from './components/GenericAutocomplete';
 import { DestinationAndTimelineItem } from "./components/DestinationsAndTimeline";
 import { ParticipantsByOffice } from './ParticipantsByOffice';
+import type { SynchFormSchema } from '../../schemas/synch.types';
 
 const fiscalYears: string[] = Array.from({ length: FISCAL_YEAR_UPPER_BOUND - FISCAL_YEAR_LOWER_BOUND + 1 }, (_, index) => (FISCAL_YEAR_LOWER_BOUND + index).toString())
 
@@ -174,9 +175,10 @@ export const Activity = () => {
 
                 </Select>
 
-                <GenericCheckbox
+                <GenericCheckbox<ActivityFormValues>
                     items={watch("activity.strategicApproach")}
                     namePrefix="activity.strategicApproach"
+                    control={control}
                 />
 
                 <DestinationAndTimelineItem />

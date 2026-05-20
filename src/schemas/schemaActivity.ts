@@ -8,6 +8,7 @@ const strategicApproachCheckbox = z.object({
     disabled: z.boolean()
 })
 
+/*
 //Replaced with genericCheckBox object
 const strategicApproachItem = z.object({
 
@@ -15,7 +16,7 @@ const strategicApproachItem = z.object({
      chkBoxStrategicApproach: strategicApproachCheckbox
 
 })
-
+*/
 
 import { genericCheckBox } from './schemaComponentCheckbox';
 
